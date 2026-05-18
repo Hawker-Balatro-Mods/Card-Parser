@@ -1,0 +1,54 @@
+- [ ] Get which jokers the user has
+- [ ] Apply specific Joker attributes
+    - [ ] Acrobat
+    - [ ] Ancient Joker
+    - [ ] Blue Joker
+    - [ ] Bootstraps
+    - [ ] Bull
+    - [ ] Campfire
+    - [ ] Canio
+    - [ ] Card Sharp
+    - [ ] Castle
+    - [ ] Ceremonial Dagger
+    - [ ] Constellation
+    - [ ] Dusk
+    - [ ] Driver's License
+    - [ ] Egg
+    - [ ] Erosion
+    - [ ] Flash Card
+    - [ ] Fortune Teller
+    - [ ] Glass Joker
+    - [ ] Green Joker
+    - [ ] Hiker (technically the card)
+    - [ ] Hit the Road
+    - [ ] Hologram
+    - [ ] Ice Cream
+    - [ ] Joker Stencil
+    - [ ] Madness
+    - [ ] Mystic Summit
+    - [ ] Loyalty Card
+    - [ ] Lucky Cat
+    - [ ] Obelisk
+    - [ ] Popcorn
+    - [ ] Ramen
+    - [ ] Red Card
+    - [ ] Ride the Bus
+    - [ ] Runner
+    - [ ] Spare Trousers
+    - [ ] Square Joker
+    - [ ] Steel Joker
+    - [ ] Stone Joker
+    - [ ] Supernova
+    - [ ] Swashbuckler (technically the price of other jokers)
+    - [ ] Throwback
+    - [ ] The Idol
+    - [ ] Vampire
+    - [ ] Wee Joker
+    - [ ] Yorick
+- [ ] Get which cards the user has in their play area
+- [ ] Get the level of each hand
+- [ ] Get the amount of times each hand has been played
+- [ ] Parse the information into a link to put into the [Balatro Calculator](https://efhiii.github.io/balatro-calculator/)
+    - [ ] Have this function run every time:
+        - [ ] Joker area is modified
+        - [ ] Card area is modified
