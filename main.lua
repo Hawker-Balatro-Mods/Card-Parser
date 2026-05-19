@@ -5,6 +5,20 @@ local GameState = assert(SMODS.load_file('game_state.lua'))()
 local game_state = GameState.new()
 
 SMODS.current_mod.calculate = function(self, context)
+    -- todo get when a joker is added to the slot
+    if context.card_added then
+        local card = context.card
+        if not card then return end
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if card.area and card.area.config.type == 'joker' then
+                    print("joker card added")
+                end
+                return true
+            end
+        }))
+    end
+
     -- Get the playing cards the user got in hand when starting a blind
     -- if the user has not used a hand yet, overwrite the playing cards
     -- otherwise, append the new cards to the playing cards

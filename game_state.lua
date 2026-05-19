@@ -6,6 +6,7 @@ GameState.__index = GameState
 function GameState.new()
     local self = setmetatable({}, GameState)
     self.playing_cards = {} -- the playing cards in hand during a blind
+    self.jokers = {} -- the jokers at the top area
     return self
 end
 
