@@ -6,7 +6,42 @@ GameState.__index = GameState
 function GameState.new()
     local self = setmetatable({}, GameState)
     self.playing_cards = {} -- the playing cards in hand during a blind
+    self.jokers = {} -- the jokers at the top area
     return self
+end
+
+-- Reset game state to be empty
+function GameState:reset()
+    self.playing_cards = {}
+    self.jokers = {}
+    print("reset state")
+end
+
+-- todo refactor these bottom two into one function
+
+-- Add a joker to a joker slot
+function GameState:add_joker(joker)
+    table.insert(self.jokers, joker)
+end
+
+-- Add multiple jokers to joker slot
+function GameState:add_jokers(jokers)
+    for _, joker in ipairs(jokers) do
+        table.insert(self.jokers, joker)
+    end
+end
+
+-- Remove joker from a joker slot
+function GameState:remove_joker(target_joker)
+    local new_jokers = {}
+
+    for _, joker in ipairs(self.jokers) do
+        if not same_joker(target_joker, joker) then
+            table.insert(new_jokers, joker)
+        end
+    end
+
+    self.jokers = new_jokers
 end
 
 -- Overwrite the playing cards
@@ -52,11 +87,23 @@ function GameState:print_playing_cards()
     print("Playing cards in hand: " .. print_play_card_data(self.playing_cards))
 end
 
+-- Print jokers in the joker area
+function GameState:print_jokers()
+    print("Jokers in slot: " .. print_joker_data(self.jokers))
+end
+
 -- Helper function to see if two playing cards are the same
 function same_playing_card(c1, c2)
     -- todo need to add seals, enhancements, and editions
     return c1.base.id == c2.base.id and 
            c1.base.suit == c2.base.suit
+end
+
+-- Helper function to see if two jokers are the same
+function same_joker(j1, j2)
+    -- todo add order and editions
+    return j1.label == j2.label
+
 end
 
 -- Helper function to print playing cards (not necessarily the ones in the player's hand)
@@ -76,6 +123,17 @@ function print_play_card_data(cards)
     end
 
     return table.concat(card_strings, ", ") .. " (" .. #cards .. ")"
+end
+
+-- Helper function to print jokers
+function print_joker_data(jokers)
+    local joker_strings = {}
+
+    for _, joker in ipairs(jokers) do
+        table.insert(joker_strings, joker.label)
+    end
+
+    return table.concat(joker_strings, ", ") .. " (" .. #jokers .. ")"
 end
 
 return GameState
