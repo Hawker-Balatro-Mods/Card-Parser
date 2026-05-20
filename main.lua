@@ -1,5 +1,6 @@
 print("Card Parser mod loaded")
 
+
 -- variable to hold data for transfer to calculator
 local GameState = assert(SMODS.load_file('game_state.lua'))()
 local game_state = GameState.new()
@@ -60,26 +61,48 @@ SMODS.current_mod.calculate = function(self, context)
             end
         }))
     end
+
+    -- remove a joker when being sold
+    if context.selling_card and context.card.ability.set == "Joker" then
+        game_state:remove_joker(context.card)
+        game_state:print_jokers()
+    end
+
 end
 
 local game_start_run_ref = Game.start_run
 function Game:start_run(args, ...)
-    -- get the playing cards the user got in hand when loading into a round
-    -- verify this only happen if the user is in a blind
+
     local ret = game_start_run_ref(self, args, ...)
     if args.savetext then
         local blind = G.GAME.blind.config.blind.key
         local cards = G.hand.cards;
+        local jokers = G.jokers.cards
         G.E_MANAGER:add_event(Event({
             func = function()
+                -- get the playing cards the user got in hand when loading into a round
+                -- verify this only happen if the user is in a blind
                 if blind ~= nil then
                     game_state:set_playing_cards(cards)
                     game_state:print_playing_cards()
                 end
+
+                -- add jokers the user got in hand when loading in a run
+                game_state:add_jokers(jokers)
+                game_state:print_jokers()
+
                 return true
             end
         }))
     end
+    return ret
+end
+
+-- reset state when going to main menu
+local go_to_menu_ref = G.FUNCS.go_to_menu
+function G.FUNCS.go_to_menu(e)
+    local ret = go_to_menu_ref()
+    game_state:reset()
     return ret
 end
 
@@ -117,17 +140,10 @@ end
 
 -- G.jokers.cards
     -- Check for the following states
-        -- Player loads up a game from main menu to a round (this is how throwback joker is unlocked)
-        -- Buying one
-        -- Selling one
-        -- Buying a bufoon booster (and not pressing "skip")
         -- Consumables
             -- Tarots
                 -- Wheel
-                -- Judgement
             -- Spectral
-                -- Soul
-                -- Wraith
                 -- Ectoplasm
                 -- Ankhe
                 -- Hex
