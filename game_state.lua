@@ -31,6 +31,16 @@ function GameState:add_jokers(jokers)
     end
 end
 
+-- Overwrite the jokers
+function GameState:set_jokers(jokers)
+    local copy = {}
+    for _, joker in ipairs(jokers) do
+        table.insert(copy, joker)
+    end
+    self.jokers = copy
+end
+
+
 -- Remove joker from a joker slot
 function GameState:remove_joker(target_joker)
     local new_jokers = {}
@@ -46,9 +56,11 @@ end
 
 -- Overwrite the playing cards
 function GameState:set_playing_cards(cards)
+    local copy = {}
     for _, card in ipairs(cards) do
-        table.insert(self.playing_cards, card)
+        table.insert(copy, card)
     end
+    self.playing_cards = copy
 end
 
 -- Add cards to playing cards

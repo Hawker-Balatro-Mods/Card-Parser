@@ -6,7 +6,7 @@ local GameState = assert(SMODS.load_file('game_state.lua'))()
 local game_state = GameState.new()
 
 SMODS.current_mod.calculate = function(self, context)
-    -- todo get when a joker is added to the slot
+    -- get when a joker is added to the slot
     if context.card_added then
         local card = context.card
         if not card then return end
@@ -83,7 +83,8 @@ function Game:start_run(args, ...)
                 end
 
                 -- add jokers the user got in hand when loading in a run
-                game_state:add_jokers(jokers)
+                print(#jokers)
+                game_state:set_jokers(jokers)
                 game_state:print_jokers()
 
                 return true
