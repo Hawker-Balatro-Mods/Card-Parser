@@ -5,6 +5,11 @@ print("Card Parser mod loaded")
 local GameState = assert(SMODS.load_file('game_state.lua'))()
 local game_state = GameState.new()
 
+--local Converter = require("converter")
+
+local Converter = assert(SMODS.load_file('converter.lua'))()
+
+
 SMODS.current_mod.calculate = function(self, context)
     -- todo get when a joker is added to the slot
     if context.card_added then
@@ -12,9 +17,8 @@ SMODS.current_mod.calculate = function(self, context)
         if not card then return end
         G.E_MANAGER:add_event(Event({
             func = function()
-                if card.ability.set == "Joker" then
-                    game_state:add_joker(card)
-                    game_state:print_jokers()
+                if card.area and card.area.config.type == 'joker' then
+                    print("joker card added")
                 end
                 return true
             end
@@ -35,6 +39,7 @@ SMODS.current_mod.calculate = function(self, context)
                     game_state:add_playing_cards(cards)
                 end
                 game_state:print_playing_cards()
+				Converter.compileHand({}, game_state.playing_cards)
                 return true
             end
         }))
