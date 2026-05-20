@@ -47,7 +47,7 @@ function Converter.compileHand(jokers, cards)
 		--sprite y-pos (4b) [!]
 		joinTables(binary, intToBinary(0, 4))
 
-		--eddition (1+2b) [!]
+		--edition (1+2b) [!]
 		joinTables(binary, intToBinary(0, 1))
 
 		--value (1+16b) [!]
@@ -71,14 +71,14 @@ function Converter.compileHand(jokers, cards)
 		--rank (4b)
 		joinTables(binary, intToBinary(card.base.id - 2, 4))
 
-		--edition (1+2b) [!]
-		joinTables(binary, intToBinary(0, 1))
+		--edition (1+2b)
+		joinTables(binary, editionToBinary(card))
+
+		--enhancement (3b)
+		joinTables(binary, enhancementToBinary(card))
 		
-		--enhancement (3b) [!]
-		joinTables(binary, intToBinary(0, 3))
-		
-		--seal (1b) [!]
-		joinTables(binary, intToBinary(0, 1))
+		--seal (1b)
+		joinTables(binary, {card.seal == "Red"})
 	end
 
 	--more with flint and shit
@@ -94,13 +94,41 @@ end
 
 function suitToBinary(card)
 	local suit = card.base.suit
-	if(suit == "Hearts")   then return {false,false} end
-	if(suit == "Diamonds") then return {false,true} end
-	if(suit == "Clubs")    then return {true,false} end
-	if(suit == "Spades")   then return {true,true} end
+	local suitIndex = {
+		["Hearts"] = 0,
+		["Clubs"] = 1,
+		["Diamonds"] = 2,
+		["Spades"] = 3,
+	}
+	return intToBinary(suitIndex[suit], 2)
 end
 
+function enhancementToBinary(card)
+	local enh = card.ability.effect
+	local enhIndex = {
+		["Base"] = 0,
+		["Lucky Card"] = 1,
+		["Glass Card"] = 2,
+		["Bonus Card"] = 3,
+		["Mult Card"] = 4,
+		["Steel Card"] = 5,
+		["Stone Card"] = 6,
+		["Wild Card"] = 7
+	}
+	return intToBinary(enhIndex[enh], 3)
+end
 
+function editionToBinary(card)
+	if(card.debuff) then return {true,true,true} end
+	if(card.edition == nil) then return {false} end
+	local edi = card.edition.type
+	local ediIndex = {
+		["foil"] = 0,
+		["holo"] = 1,
+		["polychrome"] = 2
+	}
+	return intToBinary(ediIndex[edi]*2+1, 3)
+end
 return Converter
 
 
