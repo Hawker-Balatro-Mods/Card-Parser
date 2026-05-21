@@ -111,11 +111,18 @@ function same_playing_card(c1, c2)
            c1.base.suit == c2.base.suit
 end
 
--- Helper function to see if two jokers are the same
+-- Helper function to see if two jokers are the same by name, debuff, and edition
 function same_joker(j1, j2)
-    -- todo add order and editions
-    return j1.label == j2.label
+    if ~(j1.label == j2.label and j1.debuff == j2.debuff) then
+        return false
+    end
 
+    if j1.edition == nil and j2.edition == nil then
+        return false
+    end
+
+    return j1.edition.type == j2.edition.type
+    
 end
 
 -- Helper function to print playing cards (not necessarily the ones in the player's hand)

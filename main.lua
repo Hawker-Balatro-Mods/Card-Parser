@@ -106,6 +106,9 @@ function Game:init_game_object()
     return ret
 end
 
+-- todo when the wheel is used, update the jokers
+
+
 -- G.hand.cards
     -- Check for the following states
         -- Consumables
@@ -141,8 +144,6 @@ end
 -- G.jokers.cards
     -- Check for the following states
         -- Consumables
-            -- Tarots
-                -- Wheel
             -- Spectral
                 -- Ectoplasm
                 -- Ankhe
