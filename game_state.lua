@@ -113,11 +113,7 @@ end
 
 -- Helper function to see if two jokers are the same by name, debuff, and edition
 function same_joker(j1, j2)
-    if ~(j1.label == j2.label and j1.debuff == j2.debuff) then
-        return false
-    end
-
-    if j1.edition == nil and j2.edition == nil then
+    if ~(j1.label == j2.label and j1.debuff == j2.debuff and (j1.edition == nil) == (j2.edition == nil)) then
         return false
     end
 
