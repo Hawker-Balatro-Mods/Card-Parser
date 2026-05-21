@@ -1,6 +1,5 @@
 print("Card Parser mod loaded")
 
-
 -- variable to hold data for transfer to calculator
 local GameState = assert(SMODS.load_file('game_state.lua'))()
 local game_state = GameState.new()
@@ -67,7 +66,6 @@ end
 
 local game_start_run_ref = Game.start_run
 function Game:start_run(args, ...)
-
     local ret = game_start_run_ref(self, args, ...)
     if args.savetext then
         local blind = G.GAME.blind.config.blind.key
@@ -83,10 +81,8 @@ function Game:start_run(args, ...)
                 end
 
                 -- add jokers the user got in hand when loading in a run
-                print(#jokers)
                 game_state:set_jokers(jokers)
                 game_state:print_jokers()
-
                 return true
             end
         }))
@@ -98,6 +94,14 @@ end
 local go_to_menu_ref = G.FUNCS.go_to_menu
 function G.FUNCS.go_to_menu(e)
     local ret = go_to_menu_ref()
+    game_state:reset()
+    return ret
+end
+
+-- reset state when run is reset via 'r' key
+local init_game_object_ref = Game.init_game_object
+function Game:init_game_object()
+    local ret = init_game_object_ref()
     game_state:reset()
     return ret
 end
