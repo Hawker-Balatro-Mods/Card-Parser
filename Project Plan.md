@@ -13,13 +13,12 @@
     - [ ] Constellation
     - [ ] Dusk
     - [ ] Driver's License
-    - [ ] Egg
     - [ ] Erosion
     - [ ] Flash Card
     - [ ] Fortune Teller
     - [ ] Glass Joker
     - [ ] Green Joker
-    - [ ] Hiker (technically the card)
+    - [ ] Hiker (technically the card) (not supported)
     - [ ] Hit the Road
     - [ ] Hologram
     - [ ] Ice Cream
@@ -38,8 +37,6 @@
     - [ ] Square Joker
     - [ ] Steel Joker
     - [ ] Stone Joker
-    - [ ] Supernova
-    - [ ] Swashbuckler (technically the price of other jokers)
     - [ ] Throwback
     - [ ] The Idol
     - [ ] Vampire

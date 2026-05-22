@@ -102,6 +102,9 @@ end
 -- Print jokers in the joker area
 function GameState:print_jokers()
     print("Jokers in slot: " .. print_joker_data(self.jokers))
+	if #self.jokers > 0 then
+		--print(self.jokers[1].base_cost)
+	end
 end
 
 -- Helper function to see if two playing cards are the same
@@ -113,9 +116,13 @@ end
 
 -- Helper function to see if two jokers are the same by name, debuff, and edition
 function same_joker(j1, j2)
-    if ~(j1.label == j2.label and j1.debuff == j2.debuff and (j1.edition == nil) == (j2.edition == nil)) then
+    if not (j1.label == j2.label and j1.debuff == j2.debuff and (j1.edition == nil) == (j2.edition == nil)) then
         return false
     end
+
+	if(j1.edition == nil) then
+		return true
+	end
 
     return j1.edition.type == j2.edition.type
     

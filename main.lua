@@ -38,7 +38,7 @@ SMODS.current_mod.calculate = function(self, context)
                     game_state:add_playing_cards(cards)
                 end
                 game_state:print_playing_cards()
-				Converter.compileHand({}, game_state.playing_cards)
+				Converter.compileHand(game_state.jokers, game_state.playing_cards)
                 return true
             end
         }))

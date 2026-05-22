@@ -1,6 +1,7 @@
 local bit = require("bit")
 local Converter = {}
 
+--General functions
 function joinTables(pre, post)
 	for _, v in ipairs(post) do table.insert(pre, v) end
 end
@@ -33,6 +34,8 @@ function binaryToBase64(bitsarray)
 	return table.concat(finalChars)
 end
 
+
+--Main function
 function Converter.compileHand(jokers, cards)
 	local binary = {}
 
@@ -40,21 +43,19 @@ function Converter.compileHand(jokers, cards)
 	joinTables(binary, intToBinary(#jokers, 16))
 	
 	--foreach joker
-	for index, value in ipairs(jokers) do
-		--sprite x-pos (4b) [!]
-		joinTables(binary, intToBinary(0, 4))
-		
-		--sprite y-pos (4b) [!]
-		joinTables(binary, intToBinary(0, 4))
+	for _, joker in ipairs(jokers) do
 
-		--edition (1+2b) [!]
-		joinTables(binary, intToBinary(0, 1))
+		--sprite pos (8b)
+		joinTables(binary, spritePosToBinary(joker))
+
+		--edition (1+2b)
+		joinTables(binary, editionToBinary(joker))
 
 		--value (1+16b) [!]
 		joinTables(binary, intToBinary(0, 1))
 
-		--sell value (1+16) [!]
-		joinTables(binary, intToBinary(0, 1))
+		--sell value (1+16)
+		joinTables(binary, sellToBinary(joker))
 	end
 
 	--num of play cards (16b)
@@ -81,7 +82,7 @@ function Converter.compileHand(jokers, cards)
 		joinTables(binary, {card.seal == "Red"})
 	end
 
-	--more with flint and shit
+	--more with flint and shit [!]
 
 	--remove trailing 0s
 	while binary[#binary] == false do table.remove(binary, #binary) end
@@ -91,7 +92,6 @@ end
 
 
 --Card based functions
-
 function suitToBinary(card)
 	local suit = card.base.suit
 	local suitIndex = {
@@ -118,10 +118,15 @@ function enhancementToBinary(card)
 	return intToBinary(enhIndex[enh], 3)
 end
 
+
+--Card/Joker functions
 function editionToBinary(card)
 	if(card.debuff) then return {true,true,true} end
 	if(card.edition == nil) then return {false} end
 	local edi = card.edition.type
+
+	if(edi == "negative") then return {false} end
+
 	local ediIndex = {
 		["foil"] = 0,
 		["holo"] = 1,
@@ -129,10 +134,31 @@ function editionToBinary(card)
 	}
 	return intToBinary(ediIndex[edi]*2+1, 3)
 end
+
+
+--Joker functions
+function spritePosToBinary(card)
+	local ypos = card.children.center.sprite_pos.y
+	local xpos = card.children.center.sprite_pos.x
+
+	if(card.base_cost == 20) then --legendary jokers use a slighly different table
+		ypos = 8
+		xpos = xpos + 3	
+	end
+	
+	local bin = intToBinary(ypos, 4)
+	joinTables(bin, intToBinary(xpos, 4))
+	return bin
+end
+
+function sellToBinary(card)
+	if(math.floor(card.base_cost/2)	 == card.sell_cost ) then return{false} end;
+	return intToBinary(card.sell_cost*2+1, 17)
+end
+
 return Converter
 
 
---compileHand({"Jolly", "Zany", "Devious"}, {"10 of tpades"})
 
 --[[
 	# of joker 							(16b)
