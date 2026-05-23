@@ -1,10 +1,7 @@
 print("Card Parser mod loaded")
 
 -- variable to hold data for transfer to calculator
-local GameState = assert(SMODS.load_file('game_state.lua'))()
-local game_state = GameState.new()
-
---local Converter = require("converter")
+GameState = assert(SMODS.load_file('game_state.lua'))()
 
 local Converter = assert(SMODS.load_file('converter.lua'))()
 
@@ -16,8 +13,9 @@ SMODS.current_mod.calculate = function(self, context)
         if not card then return end
         G.E_MANAGER:add_event(Event({
             func = function()
-                if card.area and card.area.config.type == 'joker' then
-                    print("joker card added")
+                if card.ability.set == "Joker" then
+                    GameState.add_joker(card)
+                    GameState.print_jokers()
                 end
                 return true
             end
@@ -33,12 +31,12 @@ SMODS.current_mod.calculate = function(self, context)
         G.E_MANAGER:add_event(Event({
             func = function()
                 if first_hand_drawn then
-                    game_state:set_playing_cards(cards)
+                    GameState.set_playing_cards(cards)
                 else
-                    game_state:add_playing_cards(cards)
+                    GameState.add_playing_cards(cards)
                 end
-                game_state:print_playing_cards()
-				Converter.compileHand(game_state.jokers, game_state.playing_cards)
+                GameState.print_playing_cards()
+				Converter.compileHand(GameState.jokers, GameState.playing_cards)
                 return true
             end
         }))
@@ -47,7 +45,7 @@ SMODS.current_mod.calculate = function(self, context)
     -- remove playing cards when they are used in a hand
     if context.press_play then
         local cards = G.hand.highlighted
-        game_state:remove_playing_cards(cards)
+        GameState.remove_playing_cards(cards)
     end
 
     -- remove playing cards when they are used in a discard
@@ -55,7 +53,7 @@ SMODS.current_mod.calculate = function(self, context)
         local cards = context.full_hand
         G.E_MANAGER:add_event(Event({
             func = function()
-                    game_state:remove_playing_cards(cards)
+                    GameState.remove_playing_cards(cards)
                 return true
             end
         }))
@@ -63,8 +61,8 @@ SMODS.current_mod.calculate = function(self, context)
 
     -- remove a joker when being sold
     if context.selling_card and context.card.ability.set == "Joker" then
-        game_state:remove_joker(context.card)
-        game_state:print_jokers()
+        GameState.remove_joker(context.card)
+        GameState.print_jokers()
     end
 
 end
@@ -81,13 +79,13 @@ function Game:start_run(args, ...)
                 -- get the playing cards the user got in hand when loading into a round
                 -- verify this only happen if the user is in a blind
                 if blind ~= nil then
-                    game_state:set_playing_cards(cards)
-                    game_state:print_playing_cards()
+                    GameState.set_playing_cards(cards)
+                    GameState.print_playing_cards()
                 end
 
                 -- add jokers the user got in hand when loading in a run
-                game_state:set_jokers(jokers)
-                game_state:print_jokers()
+                GameState.set_jokers(jokers)
+                GameState.print_jokers()
                 return true
             end
         }))
@@ -99,7 +97,7 @@ end
 local go_to_menu_ref = G.FUNCS.go_to_menu
 function G.FUNCS.go_to_menu(e)
     local ret = go_to_menu_ref()
-    game_state:reset()
+    GameState.reset()
     return ret
 end
 
@@ -107,7 +105,7 @@ end
 local init_game_object_ref = Game.init_game_object
 function Game:init_game_object()
     local ret = init_game_object_ref()
-    game_state:reset()
+    GameState.reset()
     return ret
 end
 

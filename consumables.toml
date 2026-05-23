@@ -1,0 +1,9 @@
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "eligible_card:set_edition(edition, true)"
+position = 'before'
+match_indent = true
+payload = '''
+GameState.consumable_print()
+'''

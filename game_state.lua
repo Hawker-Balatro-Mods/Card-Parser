@@ -1,80 +1,79 @@
 -- todo either find or make a sort function for playing cards
 -- Class to hold the state that will be transferred to the calculator
-local GameState = {}
-GameState.__index = GameState
+GameState = {
+    playing_cards = {}, -- the playing cards in hand during a blind
+    jokers = {} -- the jokers at the top area
+}
 
-function GameState.new()
-    local self = setmetatable({}, GameState)
-    self.playing_cards = {} -- the playing cards in hand during a blind
-    self.jokers = {} -- the jokers at the top area
-    return self
+
+function GameState.consumable_print()
+    print("consumable print")
 end
 
 -- Reset game state to be empty
-function GameState:reset()
-    self.playing_cards = {}
-    self.jokers = {}
+function GameState.reset()
+    GameState.playing_cards = {}
+    GameState.jokers = {}
     print("reset state")
 end
 
 -- todo refactor these bottom two into one function
-
 -- Add a joker to a joker slot
-function GameState:add_joker(joker)
-    table.insert(self.jokers, joker)
+function GameState.add_joker(joker)
+    table.insert(GameState.jokers, joker)
 end
 
 -- Add multiple jokers to joker slot
-function GameState:add_jokers(jokers)
+function GameState.add_jokers(jokers)
     for _, joker in ipairs(jokers) do
-        table.insert(self.jokers, joker)
+        table.insert(GameState.jokers, joker)
     end
 end
 
 -- Overwrite the jokers
-function GameState:set_jokers(jokers)
+function GameState.set_jokers(jokers)
     local copy = {}
     for _, joker in ipairs(jokers) do
         table.insert(copy, joker)
     end
-    self.jokers = copy
+    GameState.jokers = copy
 end
 
 
 -- Remove joker from a joker slot
-function GameState:remove_joker(target_joker)
+function GameState.remove_joker(target_joker)
     local new_jokers = {}
 
-    for _, joker in ipairs(self.jokers) do
+    for _, joker in ipairs(GameState.jokers) do
         if not same_joker(target_joker, joker) then
             table.insert(new_jokers, joker)
         end
     end
 
-    self.jokers = new_jokers
+    GameState.jokers = new_jokers
 end
 
 -- Overwrite the playing cards
-function GameState:set_playing_cards(cards)
+function GameState.set_playing_cards(cards)
     local copy = {}
     for _, card in ipairs(cards) do
         table.insert(copy, card)
     end
-    self.playing_cards = copy
+    GameState.playing_cards = copy
 end
 
 -- Add cards to playing cards
-function GameState:add_playing_cards(cards)
+function GameState.add_playing_cards(cards)
     for _, card in ipairs(cards) do
-        table.insert(self.playing_cards, card)
+        table.insert(GameState.playing_cards, card)
     end
 end
 
 -- Remove cards from playing cards
-function GameState:remove_playing_cards(cards_to_remove)
+function GameState.remove_playing_cards(cards_to_remove)
     local new_playing_cards = {}
 
-    for _, card in ipairs(self.playing_cards) do
+    for _, card in ipairs(GameState.playing_cards) do
         local should_remove = false
 
         -- Check if this card matches any card to remove
@@ -91,20 +90,17 @@ function GameState:remove_playing_cards(cards_to_remove)
         end
     end
 
-    self.playing_cards = new_playing_cards
+    GameState.playing_cards = new_playing_cards
 end
 
 -- Print the playing cards
-function GameState:print_playing_cards()
-    print("Playing cards in hand: " .. print_play_card_data(self.playing_cards))
+function GameState.print_playing_cards()
+    print("Playing cards in hand: " .. print_play_card_data(GameState.playing_cards))
 end
 
 -- Print jokers in the joker area
-function GameState:print_jokers()
-    print("Jokers in slot: " .. print_joker_data(self.jokers))
-	if #self.jokers > 0 then
-		--print(self.jokers[1].base_cost)
-	end
+function GameState.print_jokers()
+    print("Jokers in slot: " .. print_joker_data(GameState.jokers))
 end
 
 -- Helper function to see if two playing cards are the same
