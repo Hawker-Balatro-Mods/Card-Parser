@@ -118,19 +118,19 @@ function GameState.print_jokers()
 end
 
 -- Helper function to see if two playing cards are the same
-function same_playing_card(c1, c2)
-    if joker.edition ~= nil then
-            table.insert(perks, joker.edition.type)
-        end
-        
+function same_playing_card(c1, c2)   
     if not 
     (c1.base.id == c2.base.id and 
     c1.base.suit == c2.base.suit and 
     c1.seal == c2.seal and
-    c1.edition == c2.edition and
+    c1.enhancement == c2.enhancement and
     (c1.edition == nil) == (c2.edition == nil)) then
         return false
     end
+
+    if c1.edition == nil then
+		return true
+	end
 
     return c1.edition.type == c2.edition.type
 end
@@ -141,7 +141,7 @@ function same_joker(j1, j2)
         return false
     end
 
-	if(j1.edition == nil) then
+	if j1.edition == nil then
 		return true
 	end
 
