@@ -149,9 +149,35 @@ function print_play_card_data(cards)
     }
 
     for _, card in ipairs(cards) do
+        -- X of Y (Enhancement, Edition, Seal, Debuffed)
+        local perks = {}
+        if card.edition ~= nil then
+            table.insert(perks, card.edition.type)
+        end
+
+        if card.ability.effect ~= "Base" then
+            table.insert(perks, card.ability.effect)
+        end
+
+        if card.seal ~= nil then
+            table.insert(perks, card.seal.." Seal" )
+        end
+
+        if card.debuff then
+            table.insert(perks, "Debuffed")
+        end
+
         local id = card.base.id
         local name = card_names[id] or tostring(id)
-        table.insert(card_strings, name .. " of " .. card.base.suit)
+        local perk_string = table.concat(perks, ", ")
+
+        if(#perks > 0) then
+            table.insert(card_strings, name .." of ".. card.base.suit.." ("..perk_string..")")
+        else
+            table.insert(card_strings, name .." of ".. card.base.suit)
+        end
+
+        
     end
 
     return table.concat(card_strings, ", ") .. " (" .. #cards .. ")"
@@ -162,21 +188,24 @@ function print_joker_data(jokers)
     local joker_strings = {}
 
     for _, joker in ipairs(jokers) do
-        -- Joker (Deuffed)
         -- Joker (Foil, Deuffed)
-        -- Joker (Foil)
-        -- Joker
-        local label = nil
-        if joker.debuff and joker.edition ~= nil then
-            label = joker.label .. " (debuffed, " .. joker.edition.type .. ")" 
-        elseif joker.debuff then
-            label = joker.label .. " (debuffed)" 
-        elseif joker.edition ~= nil then
-            label = joker.label .. " (" .. joker.edition.type .. ")" 
-        else
-            label = joker.label
+        local perks = {}
+
+        if joker.edition ~= nil then
+            table.insert(perks, joker.edition.type)
         end
-        table.insert(joker_strings, label)
+
+         if joker.debuff then
+            table.insert(perks, "Debuffed")
+        end
+
+        local perk_string = table.concat(perks, ", ")
+
+        if(#perks > 0) then
+            table.insert(joker_strings, joker.label.." (" ..perk_string.. ")")
+        else
+            table.insert(joker_strings, joker.label)
+        end
     end
 
     return table.concat(joker_strings, ", ") .. " (" .. #jokers .. ")"
