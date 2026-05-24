@@ -119,9 +119,20 @@ end
 
 -- Helper function to see if two playing cards are the same
 function same_playing_card(c1, c2)
-    -- todo need to add seals, enhancements, and editions
-    return c1.base.id == c2.base.id and 
-           c1.base.suit == c2.base.suit
+    if joker.edition ~= nil then
+            table.insert(perks, joker.edition.type)
+        end
+        
+    if not 
+    (c1.base.id == c2.base.id and 
+    c1.base.suit == c2.base.suit and 
+    c1.seal == c2.seal and
+    c1.edition == c2.edition and
+    (c1.edition == nil) == (c2.edition == nil)) then
+        return false
+    end
+
+    return c1.edition.type == c2.edition.type
 end
 
 -- Helper function to see if two jokers are the same by name, debuff, and edition
