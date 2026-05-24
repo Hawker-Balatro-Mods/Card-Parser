@@ -5,7 +5,8 @@
 GameState = {
     playing_cards = {}, -- the playing cards in hand during a blind
     jokers = {}, -- the jokers at the top area
-    joker_consumable_keys = {"c_wheel_of_fortune"} -- consumables keys to be aware of to update the jokers
+    joker_consumable_keys = {"c_wheel_of_fortune", "c_ectoplasm", "c_hex", "c_ankh"}, -- consumables keys to be aware of to update the jokers
+    playing_cards_consumable_keys = {"c_magician", "c_empress", "c_heirophant", "c_lovers", "c_chariot", "c_justice", "c_strength", "c_hanged_man", "c_death", "c_devil", "c_tower", "c_star", "c_moon", "c_sun", "c_world", "c_familiar", "c_grim", "c_incantation", "c_talisman", "c_aura", "c_sigil", "c_ouija", "c_immolate", "c_deja_vu", "c_trance", "c_medium", "c_cryptid"} -- consumables keys to be aware of to update the playing_cards
 }
 
 -- returns if key is in joker_consumable_keys
