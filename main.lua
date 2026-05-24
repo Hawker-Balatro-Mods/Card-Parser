@@ -6,6 +6,7 @@ GameState = assert(SMODS.load_file('game_state.lua'))()
 local Converter = assert(SMODS.load_file('converter.lua'))()
 
 
+
 SMODS.current_mod.calculate = function(self, context)
     -- get when a joker is added to the slot
     if context.card_added then

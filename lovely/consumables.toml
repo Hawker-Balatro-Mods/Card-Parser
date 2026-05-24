@@ -1,3 +1,8 @@
+[manifest]
+version = "0.0.0"
+dump_lua = true
+priority = 1
+
 [[patches]]
 [patches.pattern]
 target = "card.lua"
