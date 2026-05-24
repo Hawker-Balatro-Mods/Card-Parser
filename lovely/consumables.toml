@@ -3,6 +3,7 @@ version = "0.0.0"
 dump_lua = true
 priority = 1
 
+# The Wheel of Fortune, Ectoplasm, Hex
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -14,5 +15,23 @@ if GameState.is_joker_consumable_key(self.config.center_key) then
     GameState.set_jokers(G.jokers.cards)
     GameState.print_jokers()
 end
+'''
 
+# Hanged Man
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+for i=#G.hand.highlighted, 1, -1 do
+    destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
+end
+'''
+position = 'after'
+match_indent = true
+payload = '''
+if G.GAME.blind.config.blind.key ~= nil then
+    print("hanged man destroyed cards")
+    GameState.remove_playing_cards(destroyed_cards)
+    GameState.print_playing_cards()
+end
 '''

@@ -1,5 +1,7 @@
 print("Card Parser mod loaded")
 
+-- todo remove to the cards selected by hanged man from playing cards
+
 -- variable to hold data for transfer to calculator
 GameState = assert(SMODS.load_file('game_state.lua'))()
 
