@@ -7,8 +7,12 @@ priority = 1
 [patches.pattern]
 target = "card.lua"
 pattern = "eligible_card:set_edition(edition, true)"
-position = 'before'
+position = 'after'
 match_indent = true
 payload = '''
-GameState.consumable_print()
+if GameState.is_joker_consumable_key(self.config.center_key) then
+    GameState.set_jokers(G.jokers.cards)
+    GameState.print_jokers()
+end
+
 '''

@@ -1,13 +1,26 @@
+
+
 -- todo either find or make a sort function for playing cards
 -- Class to hold the state that will be transferred to the calculator
 GameState = {
     playing_cards = {}, -- the playing cards in hand during a blind
-    jokers = {} -- the jokers at the top area
+    jokers = {}, -- the jokers at the top area
+    joker_consumable_keys = {"c_wheel_of_fortune"} -- consumables keys to be aware of to update the jokers
 }
 
+-- returns if key is in joker_consumable_keys
+function GameState.is_joker_consumable_key(key)
+    for _, value in ipairs(GameState.joker_consumable_keys) do
+        if value == key then
+            return true
+        end
+    end
+    return false
+end
 
 function GameState.consumable_print()
     print("consumable print")
+    
 end
 
 -- Reset game state to be empty
@@ -143,12 +156,26 @@ function print_play_card_data(cards)
     return table.concat(card_strings, ", ") .. " (" .. #cards .. ")"
 end
 
--- Helper function to print jokers
+-- Helper function to print jokers including editions and debuffed
 function print_joker_data(jokers)
     local joker_strings = {}
 
     for _, joker in ipairs(jokers) do
-        table.insert(joker_strings, joker.label)
+        -- Joker (Deuffed)
+        -- Joker (Foil, Deuffed)
+        -- Joker (Foil)
+        -- Joker
+        local label = nil
+        if joker.debuff and joker.edition ~= nil then
+            label = joker.label .. " (debuffed, " .. joker.edition.type .. ")" 
+        elseif joker.debuff then
+            label = joker.label .. " (debuffed)" 
+        elseif joker.edition ~= nil then
+            label = joker.label .. " (" .. joker.edition.type .. ")" 
+        else
+            label = joker.label
+        end
+        table.insert(joker_strings, label)
     end
 
     return table.concat(joker_strings, ", ") .. " (" .. #jokers .. ")"
