@@ -64,10 +64,8 @@ G.E_MANAGER:add_event(Event({
             }
             if consumable_index[key] ~= nil then
                 print(consumable_index[key] .. " was used")
-                if consumable_index[key] == "Magician" then
-                    GameState.set_playing_cards(G.hand.cards)
-                    GameState.print_playing_cards()
-                end
+                GameState.set_playing_cards(G.hand.cards)
+                GameState.print_playing_cards()
             end
             return true
         end
