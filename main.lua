@@ -1,7 +1,5 @@
 print("Card Parser mod loaded")
 
--- todo remove to the cards selected by hanged man from playing cards
-
 -- variable to hold data for transfer to calculator
 GameState = assert(SMODS.load_file('game_state.lua'))()
 
@@ -112,14 +110,10 @@ function Game:init_game_object()
     return ret
 end
 
--- todo when the wheel is used, update the jokers
-
-
 -- G.hand.cards
     -- Check for the following states
         -- Consumables
             -- Tarots
-                -- Hanged Man
                 -- Death
             -- Spectral
                 -- Familairal
