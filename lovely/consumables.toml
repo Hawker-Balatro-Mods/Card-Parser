@@ -245,3 +245,45 @@ G.E_MANAGER:add_event(Event({
     end
 }))
 '''
+
+# Immolate
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+for i = 1, self.ability.extra.destroy do destroyed_cards[#destroyed_cards+1] = temp_hand[i] end
+'''
+position = 'after'
+match_indent = true
+payload = '''
+G.E_MANAGER:add_event(Event({
+    func = function()
+        if G.GAME.blind.config.blind.key ~= nil then
+            GameState.remove_playing_cards(destroyed_cards)
+            GameState.print_playing_cards()
+            return true
+        end
+    end
+}))
+'''
+
+# Talisman, Deja Vu, Trance, Medium
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+conv_card:set_seal(self.ability.extra, nil, true)
+'''
+position = 'after'
+match_indent = true
+payload = '''
+G.E_MANAGER:add_event(Event({
+    func = function()
+        if G.GAME.blind.config.blind.key ~= nil then
+            GameState.set_playing_cards(G.hand.cards)
+            GameState.print_playing_cards()
+            return true
+        end
+    end
+}))
+'''

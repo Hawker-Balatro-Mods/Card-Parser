@@ -108,16 +108,9 @@ function Game:init_game_object()
     return ret
 end
 
--- G.hand.cards
-    -- Check for the following states
-        -- Consumables
-            -- Spectral
-                -- Ouiji
-                -- Emilate
-                -- Deja Vu
-                -- Trance
-                -- Medium
-                -- Talisman
+
+                -- 
+                -- 
 
 -- G.jokers.cards
     -- Check for the following states
