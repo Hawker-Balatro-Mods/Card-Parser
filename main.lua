@@ -108,16 +108,3 @@ function Game:init_game_object()
     return ret
 end
 
-
-                -- 
-                -- 
-
--- G.jokers.cards
-    -- Check for the following states
-        -- Consumables
-            -- Spectral
-                -- Ectoplasm
-                -- Ankhe
-                -- Hex
-
-

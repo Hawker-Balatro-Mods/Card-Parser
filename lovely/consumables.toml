@@ -13,6 +13,11 @@ match_indent = true
 payload = '''
 if GameState.is_joker_consumable_key(self.config.center_key) then
     GameState.set_jokers(G.jokers.cards)
+    if self.config.center_key == "c_hex" and #playlog_jokers > 0 then
+        for _, joker in ipairs(playlog_jokers) do
+            GameState.remove_joker(joker)
+        end
+    end
     GameState.print_jokers()
 end
 '''
