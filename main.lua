@@ -114,8 +114,6 @@ end
     -- Check for the following states
         -- Consumables
             -- Spectral
-                -- Criptid
-                -- Aura
                 -- Sigil
                 -- Ouiji
                 -- Emilate
