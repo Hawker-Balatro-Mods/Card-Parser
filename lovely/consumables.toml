@@ -216,3 +216,32 @@ G.E_MANAGER:add_event(Event({
     end
 }))
 '''
+
+# Ouija
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+for i = 1, #G.hand.cards do
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            local _card = G.hand.cards[i]
+            assert(SMODS.change_base(_card, nil, _rank.key))
+            return true
+        end
+    }))
+end
+'''
+position = 'after'
+match_indent = true
+payload = '''
+G.E_MANAGER:add_event(Event({
+    func = function()
+        if G.GAME.blind.config.blind.key ~= nil then
+            GameState.set_playing_cards(G.hand.cards)
+            GameState.print_playing_cards()
+            return true
+        end
+    end
+}))
+'''
