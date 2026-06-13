@@ -35,3 +35,42 @@ if G.GAME.blind.config.blind.key ~= nil then
     GameState.print_playing_cards()
 end
 '''
+
+# The Magician, The Empress, The Hierophant, The Lovers, The Chariot, Justice, The Devil, The Tower
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+for i=1, #G.hand.highlighted do
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() G.hand.highlighted[i]:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]);return true end }))
+end
+'''
+position = 'after'
+match_indent = true
+payload = '''
+G.E_MANAGER:add_event(Event({
+    func = function()
+        if G.GAME.blind.config.blind.key ~= nil then
+            local key = self.config.center_key
+            local consumable_index = {
+                ["c_magician"] = "Magician",
+                ["c_empress"] = "Empress",
+                ["c_heirophant"] = "Hierophant",
+                ["c_lovers"] = "Lovers",
+                ["c_chariot"] = "Chariot",
+                ["c_justice"] = "Justice",
+                ["c_devil"] = "Devil",
+                ["c_tower"] = "Tower"
+            }
+            if consumable_index[key] ~= nil then
+                print(consumable_index[key] .. " was used")
+                if consumable_index[key] == "Magician" then
+                    GameState.set_playing_cards(G.hand.cards)
+                    GameState.print_playing_cards()
+                end
+            end
+            return true
+        end
+    end
+}))
+'''

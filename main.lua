@@ -120,7 +120,7 @@ end
         -- Consumables
             -- Tarots
                 -- Hanged Man
-                -- Magician
+                -- Magician (Working on)
                 -- Empress
                 -- Hierophant
                 -- Lovers
@@ -154,3 +154,5 @@ end
                 -- Ectoplasm
                 -- Ankhe
                 -- Hex
+
+
