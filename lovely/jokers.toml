@@ -1,0 +1,24 @@
+[manifest]
+version = "0.0.0"
+dump_lua = true
+priority = 1
+
+# Ramen, Turtle Bean, Popcorn, Gros Michel, Cavendish, Ice Cream, Seltzer
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+SMODS.destroy_cards(self, nil, nil, true)
+'''
+position = 'after'
+match_indent = true
+payload = '''
+G.E_MANAGER:add_event(Event({
+    func = function()
+        GameState.remove_joker(self)
+        GameState.print_jokers()
+        return true
+    end
+}))
+'''
+

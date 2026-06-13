@@ -1,4 +1,4 @@
-- [ ] Get which jokers the user has
+- [x] Get which jokers the user has
 - [ ] Apply specific Joker attributes
     - [ ] Acrobat
     - [ ] Ancient Joker
@@ -42,7 +42,7 @@
     - [ ] Vampire
     - [ ] Wee Joker
     - [ ] Yorick
-- [ ] Get which cards the user has in their play area
+- [x] Get which cards the user has in their play area
 - [ ] Get the level of each hand
 - [ ] Get the amount of times each hand has been played
 - [ ] Parse the information into a link to put into the [Balatro Calculator](https://efhiii.github.io/balatro-calculator/)
