@@ -145,3 +145,24 @@ G.E_MANAGER:add_event(Event({
     end
 }))
 '''
+
+# Cryptid
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.ability.name == 'Cryptid' then
+'''
+position = 'after'
+match_indent = true
+payload = '''
+G.E_MANAGER:add_event(Event({
+    func = function()
+        if G.GAME.blind.config.blind.key ~= nil then
+            GameState.add_playing_cards({G.hand.highlighted[1], G.hand.highlighted[1]})
+            GameState.print_playing_cards()
+            return true
+        end
+    end
+}))
+'''
