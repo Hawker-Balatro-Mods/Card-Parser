@@ -113,10 +113,8 @@ end
 -- G.hand.cards
     -- Check for the following states
         -- Consumables
-            -- Tarots
-                -- Death
             -- Spectral
-                -- Familairal
+                -- Familiar
                 -- Grim
                 -- Incantation
                 -- Criptid
