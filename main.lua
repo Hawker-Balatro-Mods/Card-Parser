@@ -114,9 +114,6 @@ end
     -- Check for the following states
         -- Consumables
             -- Spectral
-                -- Familiar
-                -- Grim
-                -- Incantation
                 -- Criptid
                 -- Aura
                 -- Sigil
