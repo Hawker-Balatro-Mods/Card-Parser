@@ -64,6 +64,23 @@ SMODS.current_mod.calculate = function(self, context)
         GameState.print_jokers()
     end
 
+    -- Update # of hands played when a poker hand is played
+    if context.press_play then
+        local text, _ = G.FUNCS.get_poker_hand_info(G.hand.highlighted)
+        GameState.update_hands_played(text)
+
+    end
+
+    -- reset hands played per round to 0 when round is over
+    if context.end_of_round and context.game_over == false then
+        print("end of round")
+        for _, hand in pairs(GameState.hands) do
+            hand.played_this_round = 0
+        end
+        print(GameState.hands["High Card"].played)
+        print(GameState.hands["High Card"].played_this_round)
+    end
+
 end
 
 local game_start_run_ref = Game.start_run
@@ -85,6 +102,17 @@ function Game:start_run(args, ...)
                 -- add jokers the user got in hand when loading in a run
                 GameState.set_jokers(jokers)
                 GameState.print_jokers()
+
+                -- get the levels of each hand (and round if applicable)
+                for handName, handData in pairs(GameState.hands) do
+                    local source = G.GAME.hands[handName]
+                    handData.level = source.level
+                    handData.played = source.played
+                    if blind ~= nil then
+                        handData.played_this_round = source.played_this_round
+                    end
+                end
+                GameState.print_hands_data()
                 return true
             end
         }))

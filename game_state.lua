@@ -3,11 +3,45 @@
 -- todo either find or make a sort function for playing cards
 -- Class to hold the state that will be transferred to the calculator
 GameState = {
-    playing_cards = {}, -- the playing cards in hand during a blind
-    jokers = {}, -- the jokers at the top area
-    joker_consumable_keys = {"c_wheel_of_fortune", "c_ectoplasm", "c_hex", "c_ankh"}, -- consumables keys to be aware of to update the jokers
-    playing_cards_consumable_keys = {"c_magician", "c_empress", "c_heirophant", "c_lovers", "c_chariot", "c_justice", "c_strength", "c_hanged_man", "c_death", "c_devil", "c_tower", "c_star", "c_moon", "c_sun", "c_world", "c_familiar", "c_grim", "c_incantation", "c_talisman", "c_aura", "c_sigil", "c_ouija", "c_immolate", "c_deja_vu", "c_trance", "c_medium", "c_cryptid"} -- consumables keys to be aware of to update the playing_cards
+    -- the playing cards in hand during a blind
+    playing_cards = {},
+
+     -- the jokers at the top area
+    jokers = {},
+
+    -- consumables keys to be aware of to update the jokers
+    joker_consumable_keys = {"c_wheel_of_fortune", "c_ectoplasm", "c_hex", "c_ankh"}, 
+
+    -- consumables keys to be aware of to update the playing_cards
+    playing_cards_consumable_keys = {"c_magician", "c_empress", "c_heirophant", "c_lovers", "c_chariot", "c_justice", "c_strength", "c_hanged_man", "c_death", "c_devil", "c_tower", "c_star", "c_moon", "c_sun", "c_world", "c_familiar", "c_grim", "c_incantation", "c_talisman", "c_aura", "c_sigil", "c_ouija", "c_immolate", "c_deja_vu", "c_trance", "c_medium", "c_cryptid"}, 
+    
+    -- Hand meta data (hand level, # of times played in run, # of times played on the current round)
+    hands = {
+            ["Flush Five"] =       {level = 1, played = 0, played_this_round = 0 },
+            ["Flush House"] =      {level = 1, played = 0, played_this_round = 0 },
+            ["Five of a Kind"] =   {level = 1, played = 0, played_this_round = 0 },
+            ["Straight Flush"] =   {level = 1, played = 0, played_this_round = 0 },
+            ["Four of a Kind"] =   {level = 1, played = 0, played_this_round = 0 },
+            ["Full House"] =       {level = 1, played = 0, played_this_round = 0 },
+            ["Flush"] =            {level = 1, played = 0, played_this_round = 0 },
+            ["Straight"] =         {level = 1, played = 0, played_this_round = 0 },
+            ["Three of a Kind"] =  {level = 1, played = 0, played_this_round = 0 },
+            ["Two Pair"] =         {level = 1, played = 0, played_this_round = 0 },
+            ["Pair"] =             {level = 1, played = 0, played_this_round = 0 },
+            ["High Card"] =        {level = 1, played = 0, played_this_round = 0 },
+    }
 }
+
+function GameState.print_hand_data(hand)
+    local data = GameState.hands[hand]
+    print(hand .. " | # played: " .. data.played .. " | # played in round: " .. data.played_this_round .. " | level: " .. data.level)
+end
+
+function GameState.print_hands_data()
+    for handName, _ in pairs(GameState.hands) do
+        GameState.print_hand_data(handName)
+    end
+end
 
 -- returns if key is in joker_consumable_keys
 function GameState.is_joker_consumable_key(key)
@@ -19,15 +53,30 @@ function GameState.is_joker_consumable_key(key)
     return false
 end
 
-function GameState.consumable_print()
-    print("consumable print")
-    
+-- Increments hands played by one
+function GameState.update_hands_played(hand)
+    GameState.hands[hand].played = GameState.hands[hand].played + 1
+    GameState.hands[hand].played_this_round = GameState.hands[hand].played_this_round + 1
 end
 
 -- Reset game state to be empty
 function GameState.reset()
     GameState.playing_cards = {}
     GameState.jokers = {}
+    GameState.hands = {
+            ["Flush Five"] =        {level = 1, played = 0, played_this_round = 0 },
+            ["Flush House"] =       {level = 1, played = 0, played_this_round = 0 },
+            ["Five of a Kind"] =    {level = 1, played = 0, played_this_round = 0 },
+            ["Straight Flush"] =    {level = 1, played = 0, played_this_round = 0 },
+            ["Four of a Kind"] =    {level = 1, played = 0, played_this_round = 0 },
+            ["Full House"] =        {level = 1, played = 0, played_this_round = 0 },
+            ["Flush"] =             {level = 1, played = 0, played_this_round = 0 },
+            ["Straight"] =          {level = 1, played = 0, played_this_round = 0 },
+            ["Three of a Kind"] =   {level = 1, played = 0, played_this_round = 0 },
+            ["Two Pair"] =          {level = 1, played = 0, played_this_round = 0 },
+            ["Pair"] =              {level = 1, played = 0, played_this_round = 0 },
+            ["High Card"] =         {level = 1, played = 0, played_this_round = 0 },
+    }
     print("reset state")
 end
 
