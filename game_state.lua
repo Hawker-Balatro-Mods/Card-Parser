@@ -12,9 +12,6 @@ GameState = {
     -- consumables keys to be aware of to update the jokers
     joker_consumable_keys = {"c_wheel_of_fortune", "c_ectoplasm", "c_hex", "c_ankh"}, 
 
-    -- consumables keys to be aware of to update the playing_cards
-    playing_cards_consumable_keys = {"c_magician", "c_empress", "c_heirophant", "c_lovers", "c_chariot", "c_justice", "c_strength", "c_hanged_man", "c_death", "c_devil", "c_tower", "c_star", "c_moon", "c_sun", "c_world", "c_familiar", "c_grim", "c_incantation", "c_talisman", "c_aura", "c_sigil", "c_ouija", "c_immolate", "c_deja_vu", "c_trance", "c_medium", "c_cryptid"}, 
-    
     -- Hand meta data (hand level, # of times played in run, # of times played on the current round)
     hands = {
             ["Flush Five"] =       {level = 1, played = 0, played_this_round = 0 },
@@ -29,7 +26,26 @@ GameState = {
             ["Two Pair"] =         {level = 1, played = 0, played_this_round = 0 },
             ["Pair"] =             {level = 1, played = 0, played_this_round = 0 },
             ["High Card"] =        {level = 1, played = 0, played_this_round = 0 },
-    }
+    },
+
+    -- Planet cards in the consumable slots
+    planets = {
+            ["c_mercury"]  = {count = 0,name = "Mercury" },
+            ["c_venus"]    = {count = 0,name = "Venus" },
+            ["c_earth"]    = {count = 0,name = "Earth" },
+            ["c_mars"]     = {count = 0,name = "Mars" },
+            ["c_jupiter"]  = {count = 0,name = "Jupiter" },
+            ["c_saturn"]   = {count = 0,name = "Saturn" },
+            ["c_uranus"]   = {count = 0,name = "Uranus" },
+            ["c_neptune"]  = {count = 0,name = "Neptune" },
+            ["c_pluto"]    = {count = 0,name = "Pluto" },
+            ["c_planet_x"] = {count = 0,name = "Planet"  },
+            ["c_ceres"]    = {count = 0,name = "Ceres" },
+            ["c_eris"]     = {count = 0,name = "Eris" }
+    },
+
+    -- If the user has the observatory voucher
+    observatory_voucher_obtained = false;
 }
 
 function GameState.print_hand_data(hand)
@@ -77,7 +93,34 @@ function GameState.reset()
             ["Pair"] =              {level = 1, played = 0, played_this_round = 0 },
             ["High Card"] =         {level = 1, played = 0, played_this_round = 0 },
     }
+    GameState.observatory_voucher_obtained = false;
+    GameState.planets = {
+            ["c_mercury"]  = {count = 0,name = "Mercury" },
+            ["c_venus"]    = {count = 0,name = "Venus" },
+            ["c_earth"]    = {count = 0,name = "Earth" },
+            ["c_mars"]     = {count = 0,name = "Mars" },
+            ["c_jupiter"]  = {count = 0,name = "Jupiter" },
+            ["c_saturn"]   = {count = 0,name = "Saturn" },
+            ["c_uranus"]   = {count = 0,name = "Uranus" },
+            ["c_neptune"]  = {count = 0,name = "Neptune" },
+            ["c_pluto"]    = {count = 0,name = "Pluto" },
+            ["c_planet_x"] = {count = 0,name = "Planet"  },
+            ["c_ceres"]    = {count = 0,name = "Ceres" },
+            ["c_eris"]     = {count = 0,name = "Eris" }
+    };
     print("reset state")
+end
+
+-- Add a planet to a consumable slot
+function GameState.add_planet(planet)
+    local data = GameState.planets[planet.config.center_key];
+    data.count = data.count + 1
+end
+
+-- Remove a planet from a consumable slot
+function GameState.remove_planet(planet)
+    local data = GameState.planets[planet.config.center_key];
+    data.count = data.count - 1;
 end
 
 -- todo refactor these bottom two into one function
@@ -154,6 +197,14 @@ function GameState.remove_playing_cards(cards_to_remove)
     end
 
     GameState.playing_cards = new_playing_cards
+end
+
+-- Print out the planets in the consumable slots
+function GameState.print_planets()
+    for _, data in pairs(GameState.planets) do
+        print(data.name .. " (" .. data.count .. ")");
+    end
+
 end
 
 -- Print the playing cards

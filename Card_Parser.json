@@ -1,7 +1,7 @@
 {
   "id": "card_parser",
   "name": "Card Parser",
-  "author": ["Hawker", "PossessedHood416", "Luna"],
+  "author": ["Hawker", "PossessedHood416"],
   "description": "Converts the jokers and cards the user has into a url for the balatro calculator.",
   "prefix": "card_parser",
   "main_file": "main.lua",

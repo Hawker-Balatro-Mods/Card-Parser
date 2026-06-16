@@ -7,6 +7,8 @@ local Converter = assert(SMODS.load_file('converter.lua'))()
 
 SMODS.current_mod.calculate = function(self, context)
     -- get when a joker is added to the slot
+
+    -- get when a planet is added to a consumable slot
     if context.card_added then
         local card = context.card
         if not card then return end
@@ -15,6 +17,10 @@ SMODS.current_mod.calculate = function(self, context)
                 if card.ability.set == "Joker" then
                     GameState.add_joker(card)
                     GameState.print_jokers()
+                    
+                elseif GameState.planets[card.config.center_key] then
+                    GameState.add_planet(card);
+                    GameState.print_planets()
                 end
                 return true
             end
@@ -58,10 +64,17 @@ SMODS.current_mod.calculate = function(self, context)
         }))
     end
 
-    -- remove a joker when being sold
-    if context.selling_card and context.card.ability.set == "Joker" then
-        GameState.remove_joker(context.card)
-        GameState.print_jokers()
+    -- remove a joker/planet when being sold
+    if context.selling_card then
+        local card = context.card;
+        if card.ability.set == "Joker" then
+            GameState.remove_joker(card)
+            GameState.print_jokers()
+
+        elseif GameState.planets[card.config.center_key] then
+            GameState.remove_planet(card)
+            GameState.print_planets()
+        end
     end
 
     -- Update # of hands played when a poker hand is played
@@ -91,6 +104,18 @@ SMODS.current_mod.calculate = function(self, context)
                 return true
             end
         }))
+    end
+
+    -- Check if uer is buy observatory voucher
+    if context.buying_card and context.card.config.center_key == "v_observatory" then
+        GameState.observatory_voucher_obtained = true;
+        print("Observatory voucher obtained")
+    end
+
+    -- Remove a planet consumable when used
+    if context.using_consumeable then
+        GameState.remove_planet(context.consumeable)
+        GameState.print_planets()
     end
 end
 
