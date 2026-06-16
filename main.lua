@@ -77,10 +77,21 @@ SMODS.current_mod.calculate = function(self, context)
         for _, hand in pairs(GameState.hands) do
             hand.played_this_round = 0
         end
-        print(GameState.hands["High Card"].played)
-        print(GameState.hands["High Card"].played_this_round)
     end
 
+    -- Update level of each hand
+    if context.poker_hand_changed then
+        local hand_key = context.scoring_name
+        local new_level = context.new_level
+
+         G.E_MANAGER:add_event(Event({
+            func = function()
+                GameState.hands[hand_key].level = new_level;
+                GameState.print_hand_data(hand_key)
+                return true
+            end
+        }))
+    end
 end
 
 local game_start_run_ref = Game.start_run

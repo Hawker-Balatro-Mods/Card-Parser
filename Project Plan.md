@@ -43,8 +43,10 @@
     - [ ] Wee Joker
     - [ ] Yorick
 - [x] Get which cards the user has in their play area
-- [ ] Get the level of each hand
-- [ ] Get the amount of times each hand has been played
+- [x] Get the level of each hand
+- [x] Get the amount of times each hand has been played
+- [ ] Check if the user has Observatory
+- [ ] Check which planet cards the player has in their consumables
 - [ ] Parse the information into a link to put into the [Balatro Calculator](https://efhiii.github.io/balatro-calculator/)
     - [ ] Have this function run every time:
         - [ ] Joker area is modified
