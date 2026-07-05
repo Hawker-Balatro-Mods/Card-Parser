@@ -1,5 +1,4 @@
 print("Card Parser mod loaded")
--- todo check if the eye is active
 
 -- variable to hold data for transfer to calculator
 GameState = assert(SMODS.load_file('game_state.lua'))()
@@ -38,6 +37,11 @@ SMODS.current_mod.calculate = function(self, context)
     -- if the user has not used a hand yet, overwrite the playing cards
     -- otherwise, append the new cards to the playing cards
     if context.hand_drawn or context.other_drawn then
+        if G.GAME.selected_back.effect.center.key == "b_plasma" then
+            GameState.using_plasma_deck = true
+            print("Using plasma deck")
+        end
+        print() 
         local first_hand_drawn = context.first_hand_drawn
         local cards = context.hand_drawn or context.other_drawn
         G.E_MANAGER:add_event(Event({
@@ -92,7 +96,7 @@ SMODS.current_mod.calculate = function(self, context)
     end
 
     -- reset hands played per round to 0 when round is over
-    -- todo set blind key to null
+    -- set blind key to null
     if context.end_of_round and context.game_over == false then
         print("end of round")
         for _, hand in pairs(GameState.hands) do
@@ -143,9 +147,15 @@ function Game:start_run(args, ...)
                     GameState.set_playing_cards(cards)
                     GameState.print_playing_cards()
 
-                    -- todo check if the player is playing a blind
+                    -- check if the player is playing a blind
                     GameState.blind_key = blind
                     print(GameState.blind_key .. " is active")
+                end
+
+                -- check if user is playing plasma deck
+                if G.GAME.selected_back.effect.center.key == "b_plasma" then
+                    GameState.using_plasma_deck = true
+                    print("Using plasma deck")
                 end
 
                 -- add jokers the user got in hand when loading in a run

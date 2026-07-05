@@ -47,11 +47,11 @@
 - [x] Get the amount of times each hand has been played
 - [x] Check if the user has Observatory
 - [x] Check which planet cards the player has in their consumable slots
-- [ ] Boss effects active
+- [x] Boss effects active
     - [x] Flint
-    - [ ] Eye
-    - [ ] Mouth
-- [ ] Using plasma deck
+    - [x] Eye
+    - [x] Mouth
+- [x] Using plasma deck
 - [ ] Parse the information into a link to put into the [Balatro Calculator](https://efhiii.github.io/balatro-calculator/)
     - [ ] Hands info
         - [ ] levels

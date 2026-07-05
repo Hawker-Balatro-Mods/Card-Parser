@@ -49,6 +49,9 @@ GameState = {
 
     -- The current blind key
     blind_key = nil,
+
+    -- if the user is using plasma_deck
+    using_plasma_deck = false
 }
 
 function GameState.print_hand_data(hand)
@@ -112,6 +115,7 @@ function GameState.reset()
             ["c_eris"]     = {count = 0,name = "Eris" }
     };
     GameState.blind_key = nil
+    GameState.using_plasma_deck = false
     print("reset state")
 end
 
