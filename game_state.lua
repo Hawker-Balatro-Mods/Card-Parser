@@ -54,6 +54,11 @@ GameState = {
     using_plasma_deck = false
 }
 
+function GameState.is_planet(consumable)
+    return GameState.planets[consumable.key] ~= nil
+end
+
+
 function GameState.print_hand_data(hand)
     local data = GameState.hands[hand]
     print(hand .. " | # played: " .. data.played .. " | # played in round: " .. data.played_this_round .. " | level: " .. data.level)

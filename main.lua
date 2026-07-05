@@ -133,7 +133,7 @@ SMODS.current_mod.calculate = function(self, context)
     end
 
     -- Remove a planet consumable when used
-    if context.using_consumeable then
+    if context.using_consumeable and GameState.is_planet(context.consumeable) then
         GameState.remove_planet(context.consumeable)
         GameState.print_planets()
     end
