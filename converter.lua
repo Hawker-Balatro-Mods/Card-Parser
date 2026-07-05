@@ -169,7 +169,14 @@ function Converter.compileHand(GameState)
 	--remove trailing 0s
 	while binary[#binary] == false do table.remove(binary, #binary) end
 	
-	print("URL: " .. binaryToBase64(binary))
+	-- Copies the calculator url to clipboard
+	local url = "https://efhiii.github.io/balatro-calculator/?h=" .. binaryToBase64(binary)
+	print("URL: " .. url)
+	if G.F_LOCAL_CLIPBOARD then
+        G.CLIPBOARD = url 
+    else
+        love.system.setClipboardText(url)
+    end 
 end
 
 
