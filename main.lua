@@ -143,6 +143,14 @@ function Game:start_run(args, ...)
             func = function()
                 -- get the playing cards the user got in hand when loading into a round
                 -- verify this only happen if the user is in a blind
+
+                -- todo check if the user has the observatory voucher
+                if G.GAME.used_vouchers["v_observatory"] then
+                    GameState.observatory_voucher_obtained = true;
+                    print("Observatory voucher obtained")
+                end
+                
+
                 if blind ~= nil then
                     GameState.set_playing_cards(cards)
                     GameState.print_playing_cards()
