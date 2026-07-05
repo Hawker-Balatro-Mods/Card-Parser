@@ -1,5 +1,33 @@
 local bit = require("bit")
 local Converter = {}
+local OrderedHandNames = {
+	"Flush Five",
+	"Flush House",
+	"Five of a Kind",
+	"Straight Flush",
+	"Four of a Kind",
+	"Full House",
+	"Flush",
+	"Straight",
+	"Three of a Kind",
+	"Two Pair",
+	"Pair",
+	"High Card"
+}
+local OrderedPlanetNames = {
+	"c_eris",
+	"c_ceres",
+	"c_planet_x",
+	"c_neptune",
+	"c_mars",
+	"c_earth",
+	"c_jupiter",
+	"c_saturn",
+	"c_venus",
+	"c_uranus",
+	"c_mercury",
+	"c_pluto"
+}
 
 --General functions
 function joinTables(pre, post)
@@ -36,7 +64,7 @@ end
 
 
 --Main function
-function Converter.compileHand(jokers, cards)
+function Converter.compileHand(jokers, cards, blind_key, using_plasma_deck, hands, observatory, planets)
 	local binary = {}
 
 	--num of jokers (16b)
@@ -82,8 +110,53 @@ function Converter.compileHand(jokers, cards)
 		joinTables(binary, {card.seal == "Red"})
 	end
 
-	--more with flint and shit [!]
+	--flint active (1b)
+	joinTables(binary, {blind_key == "bl_flint"})
+	
+	--plasma (1b)
+	joinTables(binary, {using_plasma_deck})
 
+	--foreach hand type
+	for _, handName in ipairs(OrderedHandNames) do
+		--hand level (1+16b)
+		joinTables(binary, handLevelToBinary(hands[handName]))
+	end
+
+	--observatory (1b)
+	joinTables(binary, {observatory})
+
+	if(observatory) then
+		--foreach planet type, amt in consumanles (1+16b)
+		for _, planetName in ipairs(OrderedPlanetNames) do
+			if(planets[planetName].count == 0) then
+				joinTables(binary, {false})
+			else 
+				joinTables(binary, intToBinary(planets[planetName].count*2+1, 17))
+			end
+		end
+	end
+
+	--extra hand data? (1b)
+	local nonzerohand = false
+	for _, handName in ipairs(OrderedHandNames) do
+		if(hands[handName].played > 0 or hands[handName].played_this_round > 0) then nonzerohand = true end
+	end
+	joinTables(binary, {nonzerohand})
+
+	if(nonzerohand) then
+		--for each hand type
+		for _, handName in ipairs(OrderedHandNames) do
+			--played this round? (1b)
+			joinTables(binary, {hands[handName].played_this_round > 0})
+
+			--played hands of this type this run (1+16b)
+			joinTables(binary, {hands[handName].played > 0})
+			if(hands[handName].played > 0) then
+				joinTables(binary, intToBinary(hands[handName].played, 16))
+			end
+		end
+	end	
+	
 	--remove trailing 0s
 	while binary[#binary] == false do table.remove(binary, #binary) end
 	
@@ -91,7 +164,7 @@ function Converter.compileHand(jokers, cards)
 end
 
 
---Card based functions
+--Card functions
 function suitToBinary(card)
 	local suit = card.base.suit
 	local suitIndex = {
@@ -152,13 +225,23 @@ function spritePosToBinary(card)
 end
 
 function sellToBinary(card)
-	if(math.floor(card.base_cost/2)	 == card.sell_cost ) then return{false} end;
+	if(math.floor(card.base_cost/2)	 == card.sell_cost ) then return {false} end;
 	return intToBinary(card.sell_cost*2+1, 17)
 end
 
+
+--Hand functions
+function handLevelToBinary(hand)
+	if(hand.level == 1) then return {false} end
+	return intToBinary(hand.level*2+1, 17)
+end
+
+function handPlayedStatusToBinary(hand)
+	if(not hand.played_this_round and hand.played == 0) then return {false} end
+
+end
+
 return Converter
-
-
 
 --[[
 	# of joker 							(16b)
@@ -175,7 +258,7 @@ return Converter
 		}
 		
 	num of play cards					(16b)
-	num of selected cards				(3b)
+	num of selected cards				(3b)		[!]
 	
 	foreach card [selected first] {
 		suit [hdcs]							(2b)
@@ -191,17 +274,24 @@ return Converter
 	
 	foreach hand type {
 		hand lvl != 1?						(1b)
-		if 1, hand lvl-1[?]					(16b)
+		if 1, hand lvl						(16b)
 	}
+	
+	
+	observatory?						(1b)
+		foreach planet card {
+			non-zero amt in consum?			(1b)	
+			if 1, amt in consum				(16b)
+		}
+	.
 		
-		
-	The_Eye disables or handcount != 0	(1b)
+	not all hands zeroed out?			(1b)
 	if 1, foreach hand type {
-		The_Eye played the round?		(1b)
-		played amt != 0					(1b)
-		if 1, played amt				(16b)
+		played this round?			(1b)
+		played amt != 0				(1b)
+			if 1, played amt		(16b)
 	}
-		
+
 	remove trailing 0s
 	conv to b64
 					

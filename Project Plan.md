@@ -53,12 +53,12 @@
     - [x] Mouth
 - [x] Using plasma deck
 - [ ] Parse the information into a link to put into the [Balatro Calculator](https://efhiii.github.io/balatro-calculator/)
-    - [ ] Hands info
-        - [ ] levels
-        - [ ] # of times a hand has been played in a run
-        - [ ] # of times a hand has been played in a round
-    - [ ] Check if the user has Observatory
-    - [ ] Check which planet cards the player has in their consumable slots
+    - [x] Hands info
+        - [x] levels
+        - [x] # of times a hand has been played in a run
+        - [x] # of times a hand has been played in a round
+    - [x] Check if the user has Observatory
+    - [x] Check which planet cards the player has in their consumable slots
     - [ ] Have this function run every time:
         - [x] Joker area is modified
         - [x] Card area is modified
@@ -68,7 +68,7 @@
             - [ ] # of times a hand has been played in a run
             - [ ] # of times a hand has been played in a round
     - [ ] Boss effects active
-        - [ ] Flint
-        - [ ] Eye
-        - [ ] Mouth
-    - [ ] Using plasma deck
+        - [x] Flint
+        - [ ] Eye (Balatro Calculator does not store if the blind is The Eye)
+        - [ ] Mouth (Same as The Eye)
+    - [x] Using plasma deck

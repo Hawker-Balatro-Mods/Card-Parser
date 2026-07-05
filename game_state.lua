@@ -101,18 +101,18 @@ function GameState.reset()
     }
     GameState.observatory_voucher_obtained = false;
     GameState.planets = {
-            ["c_mercury"]  = {count = 0,name = "Mercury" },
-            ["c_venus"]    = {count = 0,name = "Venus" },
-            ["c_earth"]    = {count = 0,name = "Earth" },
-            ["c_mars"]     = {count = 0,name = "Mars" },
-            ["c_jupiter"]  = {count = 0,name = "Jupiter" },
-            ["c_saturn"]   = {count = 0,name = "Saturn" },
-            ["c_uranus"]   = {count = 0,name = "Uranus" },
-            ["c_neptune"]  = {count = 0,name = "Neptune" },
-            ["c_pluto"]    = {count = 0,name = "Pluto" },
-            ["c_planet_x"] = {count = 0,name = "Planet"  },
-            ["c_ceres"]    = {count = 0,name = "Ceres" },
-            ["c_eris"]     = {count = 0,name = "Eris" }
+            ["c_mercury"]  = {count = 0, name = "Mercury" },
+            ["c_venus"]    = {count = 0, name = "Venus" },
+            ["c_earth"]    = {count = 0, name = "Earth" },
+            ["c_mars"]     = {count = 0, name = "Mars" },
+            ["c_jupiter"]  = {count = 0, name = "Jupiter" },
+            ["c_saturn"]   = {count = 0, name = "Saturn" },
+            ["c_uranus"]   = {count = 0, name = "Uranus" },
+            ["c_neptune"]  = {count = 0, name = "Neptune" },
+            ["c_pluto"]    = {count = 0, name = "Pluto" },
+            ["c_planet_x"] = {count = 0, name = "Planet"  },
+            ["c_ceres"]    = {count = 0, name = "Ceres" },
+            ["c_eris"]     = {count = 0, name = "Eris" }
     };
     GameState.blind_key = nil
     GameState.using_plasma_deck = false
