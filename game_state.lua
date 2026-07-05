@@ -47,8 +47,8 @@ GameState = {
     -- If the user has the observatory voucher
     observatory_voucher_obtained = false,
 
-    -- If the flint boss event active
-    flint_active = false
+    -- The current blind key
+    blind_key = nil,
 }
 
 function GameState.print_hand_data(hand)
@@ -111,6 +111,7 @@ function GameState.reset()
             ["c_ceres"]    = {count = 0,name = "Ceres" },
             ["c_eris"]     = {count = 0,name = "Eris" }
     };
+    GameState.blind_key = nil
     print("reset state")
 end
 
