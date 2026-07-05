@@ -11,6 +11,7 @@ SMODS.current_mod.calculate = function(self, context)
     if context.setting_blind then
         GameState.blind_key = G.GAME.blind.config.blind.key;
         print("Current blind: " .. GameState.blind_key)
+        Converter.compileHand(GameState)
     end
 
     -- get when a joker is added to the slot
@@ -28,6 +29,7 @@ SMODS.current_mod.calculate = function(self, context)
                     GameState.add_planet(card);
                     GameState.print_planets()
                 end
+                Converter.compileHand(GameState)
                 return true
             end
         }))
@@ -40,8 +42,8 @@ SMODS.current_mod.calculate = function(self, context)
         if G.GAME.selected_back.effect.center.key == "b_plasma" then
             GameState.using_plasma_deck = true
             print("Using plasma deck")
+            Converter.compileHand(GameState)
         end
-        print() 
         local first_hand_drawn = context.first_hand_drawn
         local cards = context.hand_drawn or context.other_drawn
         G.E_MANAGER:add_event(Event({
@@ -62,6 +64,7 @@ SMODS.current_mod.calculate = function(self, context)
     if context.press_play then
         local cards = G.hand.highlighted
         GameState.remove_playing_cards(cards)
+        Converter.compileHand(GameState)
     end
 
     -- remove playing cards when they are used in a discard
@@ -69,7 +72,8 @@ SMODS.current_mod.calculate = function(self, context)
         local cards = context.full_hand
         G.E_MANAGER:add_event(Event({
             func = function()
-                    GameState.remove_playing_cards(cards)
+                GameState.remove_playing_cards(cards)
+                Converter.compileHand(GameState)
                 return true
             end
         }))
@@ -81,10 +85,12 @@ SMODS.current_mod.calculate = function(self, context)
         if card.ability.set == "Joker" then
             GameState.remove_joker(card)
             GameState.print_jokers()
+            Converter.compileHand(GameState)
 
         elseif GameState.planets[card.config.center_key] then
             GameState.remove_planet(card)
             GameState.print_planets()
+            Converter.compileHand(GameState)
         end
     end
 
@@ -92,7 +98,7 @@ SMODS.current_mod.calculate = function(self, context)
     if context.press_play then
         local text, _ = G.FUNCS.get_poker_hand_info(G.hand.highlighted)
         GameState.update_hands_played(text)
-
+        Converter.compileHand(GameState)
     end
 
     -- reset hands played per round to 0 when round is over
@@ -103,6 +109,7 @@ SMODS.current_mod.calculate = function(self, context)
             hand.played_this_round = 0
         end
         GameState.blind_key = nil
+        Converter.compileHand(GameState)
     end
 
     -- Update level of each hand
@@ -114,6 +121,7 @@ SMODS.current_mod.calculate = function(self, context)
             func = function()
                 GameState.hands[hand_key].level = new_level;
                 GameState.print_hand_data(hand_key)
+                Converter.compileHand(GameState)
                 return true
             end
         }))
@@ -123,12 +131,14 @@ SMODS.current_mod.calculate = function(self, context)
     if context.buying_card and context.card.config.center_key == "v_observatory" then
         GameState.observatory_voucher_obtained = true;
         print("Observatory voucher obtained")
+        Converter.compileHand(GameState)
     end
 
     -- Remove a planet consumable when used
     if context.using_consumeable and GameState.is_planet(context.consumeable) then
         GameState.remove_planet(context.consumeable)
         GameState.print_planets()
+        Converter.compileHand(GameState)
     end
 end
 
@@ -144,12 +154,11 @@ function Game:start_run(args, ...)
                 -- get the playing cards the user got in hand when loading into a round
                 -- verify this only happen if the user is in a blind
 
-                -- todo check if the user has the observatory voucher
+                -- check if the user has the observatory voucher
                 if G.GAME.used_vouchers["v_observatory"] then
                     GameState.observatory_voucher_obtained = true;
                     print("Observatory voucher obtained")
                 end
-                
 
                 if blind ~= nil then
                     GameState.set_playing_cards(cards)
@@ -180,6 +189,7 @@ function Game:start_run(args, ...)
                     end
                 end
                 GameState.print_hands_data()
+                Converter.compileHand(GameState)
                 return true
             end
         }))
