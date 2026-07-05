@@ -64,7 +64,15 @@ end
 
 
 --Main function
-function Converter.compileHand(jokers, cards, blind_key, using_plasma_deck, hands, observatory, planets)
+function Converter.compileHand(GameState)
+	local jokers = GameState.jokers
+	local cards = GameState.playing_cards
+	local blind_key = GameState.blind_key
+	local using_plasma_deck = GameState.using_plasma_deck
+	local hands = GameState.hands
+	local observatory = GameState.observatory_voucher_obtained
+	local planets = GameState.planets
+
 	local binary = {}
 
 	--num of jokers (16b)
@@ -84,12 +92,13 @@ function Converter.compileHand(jokers, cards, blind_key, using_plasma_deck, hand
 
 		--sell value (1+16)
 		joinTables(binary, sellToBinary(joker))
+		print(joker)
 	end
 
 	--num of play cards (16b)
 	joinTables(binary, intToBinary(#cards, 16))
 
-	--num of selected cards (3b) [!]
+	--num of selected cards (3b)
 	joinTables(binary, intToBinary(0, 3))
 
 	--foreach card
@@ -218,6 +227,11 @@ function spritePosToBinary(card)
 		ypos = 8
 		xpos = xpos + 3	
 	end
+
+	if(card.config.center_key == "j_wee") then
+		ypos = 4 
+		xpos = 0
+	end
 	
 	local bin = intToBinary(ypos, 4)
 	joinTables(bin, intToBinary(xpos, 4))
@@ -258,7 +272,7 @@ return Converter
 		}
 		
 	num of play cards					(16b)
-	num of selected cards				(3b)		[!]
+	num of selected cards				(3b)
 	
 	foreach card [selected first] {
 		suit [hdcs]							(2b)

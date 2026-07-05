@@ -52,14 +52,7 @@ SMODS.current_mod.calculate = function(self, context)
                     GameState.add_playing_cards(cards)
                 end
                 GameState.print_playing_cards()
-				Converter.compileHand(
-					GameState.jokers,
-					GameState.playing_cards,
-					GameState.blind_key,
-					GameState.using_plasma_deck,
-					GameState.hands,
-					GameState.observatory_voucher_obtained,
-					GameState.planets)
+				Converter.compileHand(GameState)
                 return true
             end
         }))
