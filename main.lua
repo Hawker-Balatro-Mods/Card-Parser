@@ -1,13 +1,23 @@
 print("Card Parser mod loaded")
 
+
 -- variable to hold data for transfer to calculator
 GameState = assert(SMODS.load_file('game_state.lua'))()
 
 local Converter = assert(SMODS.load_file('converter.lua'))()
 
 SMODS.current_mod.calculate = function(self, context)
-    -- get when a joker is added to the slot
 
+    -- Check if flint boss event is active
+    if context.setting_blind then
+        local blind_key = G.GAME.blind.config.blind.key
+        if(blind_key == "bl_flint") then
+            GameState.flint_active = true;
+            print("flint is active")
+        end
+    end
+
+    -- get when a joker is added to the slot
     -- get when a planet is added to a consumable slot
     if context.card_added then
         local card = context.card
@@ -85,10 +95,16 @@ SMODS.current_mod.calculate = function(self, context)
     end
 
     -- reset hands played per round to 0 when round is over
+    -- todo set boss blind to false if any
     if context.end_of_round and context.game_over == false then
         print("end of round")
         for _, hand in pairs(GameState.hands) do
             hand.played_this_round = 0
+        end
+
+        if GameState.flint_active then
+            GameState.flint_active = false
+            print("Flint is no longer active")
         end
     end
 
@@ -133,6 +149,12 @@ function Game:start_run(args, ...)
                 if blind ~= nil then
                     GameState.set_playing_cards(cards)
                     GameState.print_playing_cards()
+
+                    -- check if the player is playing the flint
+                    if(blind == "bl_flint") then
+                        GameState.flint_active = true;
+                        print("flint is active")
+                    end
                 end
 
                 -- add jokers the user got in hand when loading in a run
@@ -171,4 +193,3 @@ function Game:init_game_object()
     GameState.reset()
     return ret
 end
-

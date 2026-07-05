@@ -45,7 +45,10 @@ GameState = {
     },
 
     -- If the user has the observatory voucher
-    observatory_voucher_obtained = false;
+    observatory_voucher_obtained = false,
+
+    -- If the flint boss event active
+    flint_active = false
 }
 
 function GameState.print_hand_data(hand)
