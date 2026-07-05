@@ -42,6 +42,19 @@ function intToBinary(num, bits)
 	return value
 end
 
+function signedIntToBinary(num, bits)
+	local value = {}
+	if(num > 0) then
+		joinTables(value, {false})
+		joinTables(value, intToBinary(num, bits-1))
+	else
+		joinTables(value, {true})
+		joinTables(value, intToBinary(num*-1, bits-1))		
+	end
+
+	return value
+end
+
 function binaryToBase64(bitsarray)
 	local b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 
@@ -88,11 +101,10 @@ function Converter.compileHand(GameState)
 		joinTables(binary, editionToBinary(joker))
 
 		--value (1+16b) [!]
-		joinTables(binary, intToBinary(0, 1))
+		joinTables(binary, jokerScalingToBinary(joker))
 
 		--sell value (1+16)
 		joinTables(binary, sellToBinary(joker))
-		print(joker)
 	end
 
 	--num of play cards (16b)
@@ -248,6 +260,20 @@ end
 function sellToBinary(card)
 	if(math.floor(card.base_cost/2)	 == card.sell_cost ) then return {false} end;
 	return intToBinary(card.sell_cost*2+1, 17)
+end
+
+function jokerScalingToBinary(card)
+	local value = {}
+
+	if(card.ability.name == 'Wee Joker') then
+		if(card.ability.extra.chips == 0) then return {false} end
+		value = {true}
+		joinTables(value, signedIntToBinary(card.ability.extra.chips/8, 16))
+		return value
+	end
+
+	print(card.ability)
+	return {false}
 end
 
 
