@@ -155,6 +155,12 @@ local jokerHandlers = {
 		if card.joker_display_values.x_mult == 1 then return nil end
 		return math.floor((card.joker_display_values.x_mult - 1) / .2)
 	end,
+
+	j_stencil = function (card)
+		local mult = card.ability.x_mult
+		if mult == 1 then return nil end
+		return mult - 1
+	end,
 	
 	j_wee = function(card)
 		if card.ability.extra.chips == 0 then return nil end

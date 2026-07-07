@@ -20,7 +20,7 @@
     - [x] Green Joker
     - [x] Hit the Road
     - [x] Hologram
-    - [ ] Ice Cream
+    - [x] Ice Cream
     - [ ] Joker Stencil
     - [ ] Madness
     - [ ] Mystic Summit
