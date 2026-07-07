@@ -92,6 +92,12 @@ local jokerHandlers = {
 		if card.ability.x_mult == 1 then return nil end
 		return math.floor((card.ability.x_mult - 1) / .1)
 	end,
+
+	j_dusk = function (card)
+		local active = G.GAME.current_round.hands_left <= 1;
+		if not active then return nil end
+		return 1
+	end,
 	
 	j_wee = function(card)
 		if card.ability.extra.chips == 0 then return nil end

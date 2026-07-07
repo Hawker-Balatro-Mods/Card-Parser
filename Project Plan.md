@@ -10,7 +10,7 @@
     - [x] Card Sharp
     - [x] Castle
     - [x] Ceremonial Dagger
-    - [ ] Constellation
+    - [x] Constellation
     - [ ] Dusk
     - [ ] Driver's License
     - [ ] Erosion
