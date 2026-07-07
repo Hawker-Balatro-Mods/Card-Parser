@@ -16,6 +16,7 @@ payload = '''
 G.E_MANAGER:add_event(Event({
     func = function()
         GameState.remove_joker(self)
+        Converter.compileHand(GameState, config.automatic_url_copy)
         GameState.print_jokers()
         return true
     end

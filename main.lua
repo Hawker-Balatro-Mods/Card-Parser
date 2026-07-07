@@ -1,12 +1,12 @@
 print("Card Parser mod loaded")
 cardparse_mod = SMODS.current_mod;
-local config = cardparse_mod.config
+config = cardparse_mod.config
 
 -- variable to hold data for transfer to calculator
 GameState = assert(SMODS.load_file('game_state.lua'))()
 
 -- Object to get calculator url
-local Converter = assert(SMODS.load_file('converter.lua'))()
+Converter = assert(SMODS.load_file('converter.lua'))()
 
 -- Config menu
 assert(SMODS.load_file('config_ui.lua'))()

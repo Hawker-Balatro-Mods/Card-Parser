@@ -19,6 +19,7 @@ if GameState.is_joker_consumable_key(self.config.center_key) then
         end
     end
     GameState.print_jokers()
+    Converter.compileHand(GameState, config.automatic_url_copy)
 end
 '''
 
@@ -37,6 +38,7 @@ payload = '''
 if G.GAME.blind.config.blind.key ~= nil then
     print("hanged man destroyed card(s)")
     GameState.remove_playing_cards(destroyed_cards)
+    Converter.compileHand(GameState, config.automatic_url_copy)
     GameState.print_playing_cards()
 end
 '''
@@ -57,6 +59,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.set_playing_cards(G.hand.cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -80,6 +83,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.set_playing_cards(G.hand.cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -104,6 +108,7 @@ G.E_MANAGER:add_event(Event({
             for i=1, #G.hand.highlighted do if G.hand.highlighted[i] ~= rightmost then table.insert(playlog_copied_to, G.hand.highlighted[i]) end end
             GameState.remove_playing_cards(playlog_copied_to)
             GameState.add_playing_cards({rightmost})
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -125,6 +130,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.remove_playing_cards(destroyed_cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             return true
         end
     end
@@ -144,6 +150,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.add_playing_cards(cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -165,6 +172,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.add_playing_cards({G.hand.highlighted[1], G.hand.highlighted[1]})
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -186,6 +194,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.set_playing_cards(G.hand.cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -215,6 +224,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.set_playing_cards(G.hand.cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -244,6 +254,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.set_playing_cards(G.hand.cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -265,6 +276,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.remove_playing_cards(destroyed_cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
@@ -286,6 +298,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.set_playing_cards(G.hand.cards)
+            Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
             return true
         end
