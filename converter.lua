@@ -77,7 +77,11 @@ end
 
 
 --Main function
-function Converter.compileHand(GameState)
+function Converter.compileHand(GameState, copy)
+	-- no point of compiling the hand if we're not copying the url
+	if not copy then
+		return
+	end
 	local jokers = GameState.jokers
 	local cards = GameState.playing_cards
 	local blind_key = GameState.blind_key
