@@ -98,6 +98,11 @@ local jokerHandlers = {
 		if not active then return nil end
 		return 1
 	end,
+
+	j_steel_joker = function (card)
+		if card.joker_display_values.x_mult == 1 then return nil end
+		return math.floor((card.joker_display_values.x_mult - 1) / .2)
+	end,
 	
 	j_wee = function(card)
 		if card.ability.extra.chips == 0 then return nil end
