@@ -18,8 +18,7 @@
     - [x] Fortune Teller
     - [x] Glass Joker
     - [x] Green Joker
-    - [ ] Hiker (technically the card) (not supported)
-    - [ ] Hit the Road
+    - [x] Hit the Road
     - [ ] Hologram
     - [ ] Ice Cream
     - [ ] Joker Stencil
@@ -40,7 +39,7 @@
     - [ ] Throwback
     - [ ] The Idol
     - [ ] Vampire
-    - [ ] Wee Joker
+    - [x] Wee Joker
     - [ ] Yorick
 - [x] Get which cards the user has in their play area
 - [x] Get the level of each hand
