@@ -124,6 +124,12 @@ local jokerHandlers = {
 		return math.floor((mult - 1) / .75);
 	end,
 
+	j_green_joker = function (card)
+		local mult = card.ability.mult
+		if mult == 0 then return nil end
+		return mult
+	end,
+
 	j_popcorn = function (card)
 		return math.floor((20 - card.ability.mult)/4)
 	end,
