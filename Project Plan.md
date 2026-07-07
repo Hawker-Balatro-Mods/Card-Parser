@@ -15,8 +15,8 @@
     - [ ] Driver's License
     - [x] Erosion
     - [x] Flash Card
-    - [ ] Fortune Teller
-    - [ ] Glass Joker
+    - [x] Fortune Teller
+    - [x] Glass Joker
     - [ ] Green Joker
     - [ ] Hiker (technically the card) (not supported)
     - [ ] Hit the Road
