@@ -315,6 +315,16 @@ function jokerScalingToBinary(card)
 		return value
 	 end
 
+	 elseif card.ability.name == "Bull" then
+	 local money = (math.max(0, G.GAME.dollars) or 0)
+	 	 if money == 0 then
+	 	return {false}
+	 else
+	 	value = {true}
+	 	joinTables(value, signedIntToBinary(money, 16))
+	 	return value
+	 end
+
 	elseif (card.ability.name == 'Wee Joker') then
 		if(card.ability.extra.chips == 0) then return {false} end
 		value = {true}
