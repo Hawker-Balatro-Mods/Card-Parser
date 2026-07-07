@@ -147,6 +147,17 @@ local jokerHandlers = {
 		return math.floor((100 - chips) / 5)
 	end,
 
+	j_madness = function (card)
+		local mult = card.ability.x_mult
+		if mult == 1 then return nil end
+		return math.floor((mult - 1) / .5);
+	end,
+
+	j_mystic_summit = function (card)
+		local active = G.GAME.current_round.discards_left <= card.ability.extra.d_remaining
+		if not active then return nil end
+		return 1
+	end,
 	j_popcorn = function (card)
 		return math.floor((20 - card.ability.mult)/4)
 	end,

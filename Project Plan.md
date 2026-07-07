@@ -21,8 +21,8 @@
     - [x] Hit the Road
     - [x] Hologram
     - [x] Ice Cream
-    - [ ] Joker Stencil
-    - [ ] Madness
+    - [x] Joker Stencil
+    - [x] Madness
     - [ ] Mystic Summit
     - [ ] Loyalty Card
     - [ ] Lucky Cat
