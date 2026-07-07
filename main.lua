@@ -1,4 +1,5 @@
-print("Card Parser mod loaded")
+sendTraceMessage("Card Parser mod loaded", "CardParserTraceLogger")
+
 cardparse_mod = SMODS.current_mod;
 config = cardparse_mod.config
 
@@ -21,7 +22,7 @@ SMODS.current_mod.calculate = function(self, context)
     -- Check if in a blind
     if context.setting_blind then
         GameState.blind_key = G.GAME.blind.config.blind.key;
-        print("Current blind: " .. GameState.blind_key)
+        sendTraceMessage("Current blind: " .. GameState.blind_key, "CardParserTraceLogger")
         Converter.compileHand(GameState, config.automatic_url_copy)
     end
 
@@ -52,13 +53,17 @@ SMODS.current_mod.calculate = function(self, context)
     if context.hand_drawn or context.other_drawn then
         if G.GAME.selected_back.effect.center.key == "b_plasma" then
             GameState.using_plasma_deck = true
-            print("Using plasma deck")
-            Converter.compileHand(GameState, config.automatic_url_copy)
+            sendTraceMessage("Using plasma deck", "CardParserTraceLogger")
+        else
+            GameState.using_plasma_deck = false
+            sendTraceMessage("Not using plasma deck", "CardParserTraceLogger")
         end
+        Converter.compileHand(GameState, config.automatic_url_copy)
         local first_hand_drawn = context.first_hand_drawn
         local cards = context.hand_drawn or context.other_drawn
         G.E_MANAGER:add_event(Event({
             func = function()
+                sendTraceMessage("Drawing cards to hand", "CardParserTraceLogger")
                 if first_hand_drawn then
                     GameState.set_playing_cards(cards)
                 else
@@ -69,6 +74,7 @@ SMODS.current_mod.calculate = function(self, context)
                 return true
             end
         }))
+
     end
 
     -- remove playing cards when they are used in a hand
@@ -115,7 +121,7 @@ SMODS.current_mod.calculate = function(self, context)
     -- reset hands played per round to 0 when round is over
     -- set blind key to null
     if context.end_of_round and context.game_over == false then
-        print("end of round")
+        sendTraceMessage("End of round", "CardParserTraceLogger")
         for _, hand in pairs(GameState.hands) do
             hand.played_this_round = 0
         end
@@ -141,7 +147,8 @@ SMODS.current_mod.calculate = function(self, context)
     -- Check if uer is buy observatory voucher
     if context.buying_card and context.card.config.center_key == "v_observatory" then
         GameState.observatory_voucher_obtained = true;
-        print("Observatory voucher obtained")
+        sendTraceMessage("Observatory voucher obtained", "CardParserTraceLogger")
+
         Converter.compileHand(GameState, config.automatic_url_copy)
     end
 
@@ -168,7 +175,7 @@ function Game:start_run(args, ...)
                 -- check if the user has the observatory voucher
                 if G.GAME.used_vouchers["v_observatory"] then
                     GameState.observatory_voucher_obtained = true;
-                    print("Observatory voucher obtained")
+                    sendTraceMessage("Observatory voucher obtained", "CardParserTraceLogger")
                 end
 
                 if blind ~= nil then
@@ -177,13 +184,13 @@ function Game:start_run(args, ...)
 
                     -- check if the player is playing a blind
                     GameState.blind_key = blind
-                    print(GameState.blind_key .. " is active")
+                    sendTraceMessage(GameState.blind_key .. " is active", "CardParserTraceLogger")
                 end
 
                 -- check if user is playing plasma deck
                 if G.GAME.selected_back.effect.center.key == "b_plasma" then
                     GameState.using_plasma_deck = true
-                    print("Using plasma deck")
+                    sendTraceMessage("Using plasma deck", "CardParserTraceLogger")
                 end
 
                 -- add jokers the user got in hand when loading in a run

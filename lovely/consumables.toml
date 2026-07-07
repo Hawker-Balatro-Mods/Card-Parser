@@ -36,7 +36,7 @@ position = 'after'
 match_indent = true
 payload = '''
 if G.GAME.blind.config.blind.key ~= nil then
-    print("hanged man destroyed card(s)")
+    sendTraceMessage("hanged man destroyed card(s)", "CardParserTraceLogger")
     GameState.remove_playing_cards(destroyed_cards)
     Converter.compileHand(GameState, config.automatic_url_copy)
     GameState.print_playing_cards()

@@ -61,7 +61,7 @@ end
 
 function GameState.print_hand_data(hand)
     local data = GameState.hands[hand]
-    print(hand .. " | # played: " .. data.played .. " | # played in round: " .. data.played_this_round .. " | level: " .. data.level)
+    sendTraceMessage(hand .. " | # played: " .. data.played .. " | # played in round: " .. data.played_this_round .. " | level: " .. data.level, "CardParserTraceLogger")
 end
 
 function GameState.print_hands_data()
@@ -121,7 +121,7 @@ function GameState.reset()
     };
     GameState.blind_key = nil
     GameState.using_plasma_deck = false
-    print("reset state")
+    sendTraceMessage("Reset Game State", "CardParserTraceLogger")
 end
 
 -- Add a planet to a consumable slot
@@ -215,19 +215,19 @@ end
 -- Print out the planets in the consumable slots
 function GameState.print_planets()
     for _, data in pairs(GameState.planets) do
-        print(data.name .. " (" .. data.count .. ")");
+        sendTraceMessage(data.name .. " (" .. data.count .. ")", "CardParserTraceLogger")
     end
 
 end
 
 -- Print the playing cards
 function GameState.print_playing_cards()
-    print("Playing cards in hand: " .. print_play_card_data(GameState.playing_cards))
+    sendTraceMessage("Playing cards in hand: " .. print_play_card_data(GameState.playing_cards), "CardParserTraceLogger")
 end
 
 -- Print jokers in the joker area
 function GameState.print_jokers()
-    print("Jokers in slot: " .. print_joker_data(GameState.jokers))
+    sendTraceMessage("Jokers in slot: " .. print_joker_data(GameState.jokers), "CardParserTraceLogger")
 end
 
 -- Helper function to see if two playing cards are the same

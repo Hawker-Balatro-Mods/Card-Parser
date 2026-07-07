@@ -187,7 +187,7 @@ function Converter.compileHand(GameState, copy)
 	
 	-- Copies the calculator url to clipboard
 	local url = "https://efhiii.github.io/balatro-calculator/?h=" .. binaryToBase64(binary)
-	print("URL: " .. url)
+	sendTraceMessage("URL: " .. url, "CardParserTraceLogger")
 	if G.F_LOCAL_CLIPBOARD then
         G.CLIPBOARD = url 
     else
@@ -275,8 +275,8 @@ function jokerScalingToBinary(card)
 		joinTables(value, signedIntToBinary(card.ability.extra.chips/8, 16))
 		return value
 	end
-
-	print(card.ability)
+    sendDebugMessage("Card ability", "CardParserDebugLogger")
+    sendDebugMessage(card.ability, "CardParserDebugLogger")
 	return {false}
 end
 
