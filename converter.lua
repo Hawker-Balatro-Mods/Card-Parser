@@ -112,6 +112,12 @@ local jokerHandlers = {
 		return math.floor(mult/2)
 	end,
 
+	j_fortune_teller = function (card)
+		local count = card.joker_display_values.mult;
+		if count == 0 then return nil end
+		return count
+	end,
+
 	j_popcorn = function (card)
 		return math.floor((20 - card.ability.mult)/4)
 	end,
