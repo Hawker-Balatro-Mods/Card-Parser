@@ -4,8 +4,8 @@
     - [x] Ancient Joker
     - [x] Blue Joker
     - [x] Bootstraps
-    - [ ] Bull
-    - [ ] Campfire
+    - [x] Bull
+    - [x] Campfire
     - [ ] Canio
     - [ ] Card Sharp
     - [ ] Castle
