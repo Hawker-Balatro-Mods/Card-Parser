@@ -106,6 +106,12 @@ local jokerHandlers = {
 		
 	end,
 
+	j_flash = function (card)
+		local mult = card.ability.mult;
+		if mult == 0 then return nil end 
+		return math.floor(mult/2)
+	end,
+
 	j_steel_joker = function (card)
 		if card.joker_display_values.x_mult == 1 then return nil end
 		return math.floor((card.joker_display_values.x_mult - 1) / .2)

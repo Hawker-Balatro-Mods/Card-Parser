@@ -13,7 +13,7 @@
     - [x] Constellation
     - [x] Dusk
     - [ ] Driver's License
-    - [ ] Erosion
+    - [x] Erosion
     - [ ] Flash Card
     - [ ] Fortune Teller
     - [ ] Glass Joker
