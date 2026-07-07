@@ -142,6 +142,11 @@ local jokerHandlers = {
 		return math.floor((mult - 1) / .25);
 	end,
 
+	j_ice_cream = function (card)
+		local chips = card.ability.extra.chips
+		return math.floor((100 - chips) / 5)
+	end,
+
 	j_popcorn = function (card)
 		return math.floor((20 - card.ability.mult)/4)
 	end,

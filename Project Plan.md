@@ -19,7 +19,7 @@
     - [x] Glass Joker
     - [x] Green Joker
     - [x] Hit the Road
-    - [ ] Hologram
+    - [x] Hologram
     - [ ] Ice Cream
     - [ ] Joker Stencil
     - [ ] Madness
