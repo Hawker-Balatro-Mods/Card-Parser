@@ -87,6 +87,11 @@ local jokerHandlers = {
 		if card.ability.mult == 0 then return nil end
 		return card.ability.mult
 	end,
+
+	j_constellation = function (card)
+		if card.ability.x_mult == 1 then return nil end
+		return math.floor((card.ability.x_mult - 1) / .1)
+	end,
 	
 	j_wee = function(card)
 		if card.ability.extra.chips == 0 then return nil end

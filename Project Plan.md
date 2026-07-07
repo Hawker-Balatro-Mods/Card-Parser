@@ -9,7 +9,7 @@
     - [x] Canio
     - [x] Card Sharp
     - [x] Castle
-    - [ ] Ceremonial Dagger
+    - [x] Ceremonial Dagger
     - [ ] Constellation
     - [ ] Dusk
     - [ ] Driver's License
