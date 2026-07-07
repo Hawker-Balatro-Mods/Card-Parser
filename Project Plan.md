@@ -17,7 +17,7 @@
     - [x] Flash Card
     - [x] Fortune Teller
     - [x] Glass Joker
-    - [ ] Green Joker
+    - [x] Green Joker
     - [ ] Hiker (technically the card) (not supported)
     - [ ] Hit the Road
     - [ ] Hologram
