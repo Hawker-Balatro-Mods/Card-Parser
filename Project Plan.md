@@ -6,9 +6,9 @@
     - [x] Bootstraps
     - [x] Bull
     - [x] Campfire
-    - [ ] Canio
-    - [ ] Card Sharp
-    - [ ] Castle
+    - [x] Canio
+    - [x] Card Sharp
+    - [x] Castle
     - [ ] Ceremonial Dagger
     - [ ] Constellation
     - [ ] Dusk

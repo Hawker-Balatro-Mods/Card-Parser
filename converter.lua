@@ -29,6 +29,66 @@ local OrderedPlanetNames = {
 	"c_pluto"
 }
 
+-- Each handler returns a number to encode, or nil for "default/inactive"
+local jokerHandlers = {
+	j_acrobat = function(card)
+		local active = ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
+		                (G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and
+		                card.ability.extra
+		if not active then return nil end
+		return 1
+	end,
+
+	j_ancient = function(card)
+		local suits = {"Hearts", "Clubs", "Diamonds", "Spades"}
+		for index, suit in ipairs(suits) do
+			if suit == card.joker_display_values.ancient_card_suit then
+				return index - 1
+			end
+		end
+		return 0
+	end,
+
+	j_blue_joker = function(card)
+		local cards_in_deck = (G.deck and G.deck.cards) and #G.deck.cards or 52
+		-- despite the website asking for cards remaining, we must calculate this ourselves
+		-- due to a calculator bug / semantic error
+		return cards_in_deck - 52
+	end,
+
+	j_bootstraps = function(card)
+		local multOf5 = math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars)
+		if multOf5 == 0 then return nil end
+		return multOf5
+	end,
+
+	j_bull = function(card)
+		local money = math.max(0, G.GAME.dollars) or 0
+		if money == 0 then return nil end
+		return money
+	end,
+
+	j_caino = function(card)
+		if card.ability.caino_xmult == 1 then return nil end
+		return card.ability.caino_xmult - 1
+	end,
+
+	j_campfire = function(card)
+		if card.ability.x_mult == 1 then return nil end
+		return (card.ability.x_mult - 1) / 0.25
+	end,
+
+	j_castle = function (card)
+		if card.ability.extra.chips == 0 then return nil end
+		return math.floor(card.ability.extra.chips / 3)
+	end,
+	
+	j_wee = function(card)
+		if card.ability.extra.chips == 0 then return nil end
+		return card.ability.extra.chips / 8
+	end,
+}
+
 --General functions
 function joinTables(pre, post)
 	for _, v in ipairs(post) do table.insert(pre, v) end
@@ -266,92 +326,21 @@ function sellToBinary(card)
 	return intToBinary(card.sell_cost*2+1, 17)
 end
 
-function jokerScalingToBinary(card)
-	local value = {}
-	local id = card.config.center_key
-	if id == "j_acrobat" then
-		local active = ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
-                    	(G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and
-                		 card.ability.extra;
-
-		if active then
-			value = {true}
-			joinTables(value, signedIntToBinary(1, 16))
-			return value;
-		else
-			return {false}
-		end
-
-	elseif id == "j_ancient" then
-		local suits = {"Hearts", "Clubs", "Diamonds", "Spades"}
-		local suit_id = 0;
-		for index, value in ipairs(suits) do
-			if value == card.joker_display_values.ancient_card_suit then
-				suit_id = index - 1
-			end
-		end
-		value = {true}
-		joinTables(value, signedIntToBinary(suit_id, 16))
-		return value;
-
-	elseif id == "j_blue_joker" then
-		value = {true}
-		local cards_in_deck = (G.deck and G.deck.cards) and #G.deck.cards or 52
-
-		-- despite the website asking for cards remaining, we must calculate this ourselves due to a calculator bug / semantic error
-		local card_remaining = cards_in_deck - 52
-		joinTables(value, signedIntToBinary(card_remaining, 16))
-		return value;
-
-	elseif id == "j_bootstraps" then
-	 local multOf5 = (math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars))
-
-	 if multOf5 == 0 then
-		return {false}
-	 else
-		value = {true}
-		joinTables(value, signedIntToBinary(multOf5, 16))
-		return value
-	 end
-
-	 elseif id == "j_bull" then
-	 	local money = (math.max(0, G.GAME.dollars) or 0)
-	 	 	if money == 0 then
-	 			return {false}
-	 		end
-		value = {true}
-		joinTables(value, signedIntToBinary(money, 16))
-		return value
-
-	 elseif id == "j_campfire" then
-		if card.ability.x_mult == 1 then
-			return {false}
-		end
-
-		local count = (card.ability.x_mult - 1) / .25; 
-		value = {true}
-		joinTables(value, signedIntToBinary(count, 16))
-		return value
-	
-	elseif id == "j_caino" then
-		if card.ability.caino_xmult == 1 then
-			return {false}
-		end
-		
-		local count = card.ability.caino_xmult - 1
-		value = {true}
-		joinTables(value, signedIntToBinary(count, 16))
-		return value
-
-	elseif (id == "j_wee") then
-		if(card.ability.extra.chips == 0) then return {false} end
-		value = {true}
-		joinTables(value, signedIntToBinary(card.ability.extra.chips/8, 16))
-		return value
-	end
-	return {false}
+local function encodeJokerScalingValue(v, bits)
+	local result = {true}
+	joinTables(result, signedIntToBinary(v, bits or 16))
+	return result
 end
 
+function jokerScalingToBinary(card)
+	local handler = jokerHandlers[card.config.center_key]
+	if not handler then return {false} end
+
+	local value = handler(card)
+	if value == nil then return {false} end
+
+	return encodeJokerScalingValue(value, 16)
+end
 
 --Hand functions
 function handLevelToBinary(hand)
