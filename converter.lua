@@ -99,6 +99,13 @@ local jokerHandlers = {
 		return 1
 	end,
 
+	j_erosion = function (card)
+		local count = G.playing_cards and (G.GAME.starting_deck_size - #G.playing_cards) or 0
+		if count == 0 then return nil end
+		return count
+		
+	end,
+
 	j_steel_joker = function (card)
 		if card.joker_display_values.x_mult == 1 then return nil end
 		return math.floor((card.joker_display_values.x_mult - 1) / .2)

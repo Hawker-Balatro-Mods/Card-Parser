@@ -11,7 +11,7 @@
     - [x] Castle
     - [x] Ceremonial Dagger
     - [x] Constellation
-    - [ ] Dusk
+    - [x] Dusk
     - [ ] Driver's License
     - [ ] Erosion
     - [ ] Flash Card
@@ -35,7 +35,7 @@
     - [ ] Runner
     - [ ] Spare Trousers
     - [ ] Square Joker
-    - [ ] Steel Joker
+    - [x] Steel Joker
     - [ ] Stone Joker
     - [ ] Throwback
     - [ ] The Idol
