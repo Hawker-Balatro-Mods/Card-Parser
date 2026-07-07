@@ -246,9 +246,9 @@ function spritePosToBinary(card)
 	local ypos = card.children.center.sprite_pos.y
 	local xpos = card.children.center.sprite_pos.x
 
-	if(card.base_cost == 20) then --legendary jokers use a slighly different table
+	if(card.base_cost == 20) then --legendary jokers use a slightly different table
 		ypos = 8
-		xpos = xpos + 3	
+		xpos = xpos
 	end
 
 	if(card.config.center_key == "j_wee") then
@@ -268,9 +268,8 @@ end
 
 function jokerScalingToBinary(card)
 	local value = {}
-
-
-	if card.ability.name == "Acrobat" then
+	local id = card.config.center_key
+	if id == "j_acrobat" then
 		local active = ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
                     	(G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and
                 		 card.ability.extra;
@@ -283,7 +282,7 @@ function jokerScalingToBinary(card)
 			return {false}
 		end
 
-	elseif card.ability.name == "Ancient Joker" then
+	elseif id == "j_ancient" then
 		local suits = {"Hearts", "Clubs", "Diamonds", "Spades"}
 		local suit_id = 0;
 		for index, value in ipairs(suits) do
@@ -295,7 +294,7 @@ function jokerScalingToBinary(card)
 		joinTables(value, signedIntToBinary(suit_id, 16))
 		return value;
 
-	elseif card.ability.name == "Blue Joker" then
+	elseif id == "j_blue_joker" then
 		value = {true}
 		local cards_in_deck = (G.deck and G.deck.cards) and #G.deck.cards or 52
 
@@ -304,7 +303,7 @@ function jokerScalingToBinary(card)
 		joinTables(value, signedIntToBinary(card_remaining, 16))
 		return value;
 
-	elseif card.ability.name == "Bootstraps" then
+	elseif id == "j_bootstraps" then
 	 local multOf5 = (math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars))
 
 	 if multOf5 == 0 then
@@ -315,7 +314,7 @@ function jokerScalingToBinary(card)
 		return value
 	 end
 
-	 elseif card.ability.name == "Bull" then
+	 elseif id == "j_bull" then
 	 	local money = (math.max(0, G.GAME.dollars) or 0)
 	 	 	if money == 0 then
 	 			return {false}
@@ -324,19 +323,27 @@ function jokerScalingToBinary(card)
 		joinTables(value, signedIntToBinary(money, 16))
 		return value
 
-	 elseif card.ability.name == "Campfire" then
-		print(card.ability.x_mult)
+	 elseif id == "j_campfire" then
 		if card.ability.x_mult == 1 then
 			return {false}
 		end
 
 		local count = (card.ability.x_mult - 1) / .25; 
-		print(count)
+		value = {true}
+		joinTables(value, signedIntToBinary(count, 16))
+		return value
+	
+	elseif id == "j_caino" then
+		if card.ability.caino_xmult == 1 then
+			return {false}
+		end
+		
+		local count = card.ability.caino_xmult - 1
 		value = {true}
 		joinTables(value, signedIntToBinary(count, 16))
 		return value
 
-	elseif (card.ability.name == 'Wee Joker') then
+	elseif (id == "j_wee") then
 		if(card.ability.extra.chips == 0) then return {false} end
 		value = {true}
 		joinTables(value, signedIntToBinary(card.ability.extra.chips/8, 16))
