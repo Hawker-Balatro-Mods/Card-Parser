@@ -269,14 +269,25 @@ end
 function jokerScalingToBinary(card)
 	local value = {}
 
+	if card.ability.name == "Ancient Joker" then
+		local suits = {"Hearts", "Clubs", "Diamonds", "Spades"}
+		local suit_id = 0;
+		for index, value in ipairs(suits) do
+			if value == card.joker_display_values.ancient_card_suit then
+				suit_id = index - 1
+			end
+		end
+		value = {true}
+		joinTables(value, signedIntToBinary(suit_id, 16))
+		return value;
+	end
+
 	if(card.ability.name == 'Wee Joker') then
 		if(card.ability.extra.chips == 0) then return {false} end
 		value = {true}
 		joinTables(value, signedIntToBinary(card.ability.extra.chips/8, 16))
 		return value
 	end
-    sendDebugMessage("Card ability", "CardParserDebugLogger")
-    sendDebugMessage(card.ability, "CardParserDebugLogger")
 	return {false}
 end
 
