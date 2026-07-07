@@ -14,7 +14,7 @@
     - [x] Dusk
     - [ ] Driver's License
     - [x] Erosion
-    - [ ] Flash Card
+    - [x] Flash Card
     - [ ] Fortune Teller
     - [ ] Glass Joker
     - [ ] Green Joker
@@ -28,7 +28,7 @@
     - [ ] Loyalty Card
     - [ ] Lucky Cat
     - [ ] Obelisk
-    - [ ] Popcorn
+    - [x] Popcorn
     - [ ] Ramen
     - [ ] Red Card
     - [ ] Ride the Bus

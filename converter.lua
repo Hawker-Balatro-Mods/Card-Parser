@@ -29,7 +29,7 @@ local OrderedPlanetNames = {
 	"c_pluto"
 }
 
--- Each handler returns a number to encode, or nil for "default/inactive"
+-- Each handler returns a number to encode, or nil for "default/inactive" jokers
 local jokerHandlers = {
 	j_acrobat = function(card)
 		local active = ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
@@ -110,6 +110,10 @@ local jokerHandlers = {
 		local mult = card.ability.mult;
 		if mult == 0 then return nil end 
 		return math.floor(mult/2)
+	end,
+
+	j_popcorn = function (card)
+		return math.floor((20 - card.ability.mult)/4)
 	end,
 
 	j_steel_joker = function (card)
