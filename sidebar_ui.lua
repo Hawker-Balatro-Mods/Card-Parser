@@ -10,7 +10,7 @@ function create_UIBox_HUD()
 end
 
 function get_copy_button()
-return {n=G.UIT.C, config={align = "cm"}, nodes={
-        {n=G.UIT.T, config={text = "Hello world", colour = G.C.UI.TEXT_LIGHT, scale = 0.5}}
+return {n=G.UIT.C, config={button = "copy_url", align = "cm", colour = G.C.RED}, nodes={
+        {n=G.UIT.T, config={text = "Copy calculator url", colour = G.C.UI.TEXT_LIGHT, scale = 0.5}},
 }}
 end
