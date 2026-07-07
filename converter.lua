@@ -280,9 +280,8 @@ function jokerScalingToBinary(card)
 		value = {true}
 		joinTables(value, signedIntToBinary(suit_id, 16))
 		return value;
-	end
 
-	if(card.ability.name == 'Wee Joker') then
+	elseif (card.ability.name == 'Wee Joker') then
 		if(card.ability.extra.chips == 0) then return {false} end
 		value = {true}
 		joinTables(value, signedIntToBinary(card.ability.extra.chips/8, 16))
