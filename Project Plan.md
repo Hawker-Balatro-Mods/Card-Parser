@@ -2,8 +2,8 @@
 - [ ] Apply specific Joker attributes
     - [x] Acrobat
     - [x] Ancient Joker
-    - [ ] Blue Joker
-    - [ ] Bootstraps
+    - [x] Blue Joker
+    - [x] Bootstraps
     - [ ] Bull
     - [ ] Campfire
     - [ ] Canio

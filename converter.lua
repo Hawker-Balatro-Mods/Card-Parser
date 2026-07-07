@@ -269,7 +269,6 @@ end
 function jokerScalingToBinary(card)
 	local value = {}
 
-	
 
 	if card.ability.name == "Acrobat" then
 		local active = ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
@@ -277,12 +276,10 @@ function jokerScalingToBinary(card)
                 		 card.ability.extra;
 
 		if active then
-			print("acrobat is active")
 			value = {true}
 			joinTables(value, signedIntToBinary(1, 16))
 			return value;
 		else
-			print("acrobat is not active")
 			return {false}
 		end
 
@@ -306,6 +303,17 @@ function jokerScalingToBinary(card)
 		local card_remaining = cards_in_deck - 52
 		joinTables(value, signedIntToBinary(card_remaining, 16))
 		return value;
+
+	elseif card.ability.name == "Bootstraps" then
+	 local multOf5 = (math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars))
+
+	 if multOf5 == 0 then
+		return {false}
+	 else
+		value = {true}
+		joinTables(value, signedIntToBinary(multOf5, 16))
+		return value
+	 end
 
 	elseif (card.ability.name == 'Wee Joker') then
 		if(card.ability.extra.chips == 0) then return {false} end
