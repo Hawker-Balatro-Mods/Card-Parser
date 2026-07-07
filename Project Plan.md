@@ -1,7 +1,7 @@
 - [x] Get which jokers the user has
 - [ ] Apply specific Joker attributes
     - [ ] Acrobat
-    - [ ] Ancient Joker
+    - [x] Ancient Joker
     - [ ] Blue Joker
     - [ ] Bootstraps
     - [ ] Bull

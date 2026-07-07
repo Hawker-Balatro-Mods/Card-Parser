@@ -269,7 +269,24 @@ end
 function jokerScalingToBinary(card)
 	local value = {}
 
-	if card.ability.name == "Ancient Joker" then
+	
+
+	if card.ability.name == "Acrobat" then
+		local active = ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
+                    	(G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and
+                		 card.ability.extra;
+
+		if active then
+			print("acrobat is active")
+			value = {true}
+			joinTables(value, signedIntToBinary(1, 16))
+			return value;
+		else
+			print("acrobat is not active")
+			return {false}
+		end
+
+	elseif card.ability.name == "Ancient Joker" then
 		local suits = {"Hearts", "Clubs", "Diamonds", "Spades"}
 		local suit_id = 0;
 		for index, value in ipairs(suits) do
@@ -280,6 +297,9 @@ function jokerScalingToBinary(card)
 		value = {true}
 		joinTables(value, signedIntToBinary(suit_id, 16))
 		return value;
+
+	elseif card.ability.name == "Blue Joker" then
+		
 
 	elseif (card.ability.name == 'Wee Joker') then
 		if(card.ability.extra.chips == 0) then return {false} end
