@@ -8,8 +8,13 @@ GameState = assert(SMODS.load_file('game_state.lua'))()
 -- Object to get calculator url
 Converter = assert(SMODS.load_file('converter.lua'))()
 
+
+
 -- Config menu
 assert(SMODS.load_file('config_ui.lua'))()
+
+-- Show copy button
+assert(SMODS.load_file('sidebar_ui.lua'))()
 
 SMODS.current_mod.calculate = function(self, context)
     -- Check if in a blind
