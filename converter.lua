@@ -299,7 +299,13 @@ function jokerScalingToBinary(card)
 		return value;
 
 	elseif card.ability.name == "Blue Joker" then
-		
+		value = {true}
+		local cards_in_deck = (G.deck and G.deck.cards) and #G.deck.cards or 52
+
+		-- despite the website asking for cards remaining, we must calculate this ourselves due to a calculator bug / semantic error
+		local card_remaining = cards_in_deck - 52
+		joinTables(value, signedIntToBinary(card_remaining, 16))
+		return value;
 
 	elseif (card.ability.name == 'Wee Joker') then
 		if(card.ability.extra.chips == 0) then return {false} end
