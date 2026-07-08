@@ -225,6 +225,12 @@ local jokerHandlers = {
 		return cards
 	end,
 
+	j_throwback = function (card)
+		local mult = card.ability.x_mult
+		if mult == 1 then return nil end
+		return math.floor((mult - 1) / .25)
+	end,
+
 	j_trousers = function (card)
 		local mult = card.ability.mult
 		if mult == 0 then return nil end

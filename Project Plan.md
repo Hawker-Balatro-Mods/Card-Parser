@@ -35,7 +35,7 @@
     - [x] Spare Trousers
     - [x] Square Joker
     - [x] Steel Joker
-    - [ ] Stone Joker
+    - [x] Stone Joker
     - [ ] Throwback
     - [ ] The Idol
     - [ ] Vampire
