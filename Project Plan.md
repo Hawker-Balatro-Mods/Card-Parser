@@ -36,7 +36,7 @@
     - [x] Square Joker
     - [x] Steel Joker
     - [x] Stone Joker
-    - [ ] Throwback
+    - [x] Throwback
     - [ ] The Idol
     - [ ] Vampire
     - [x] Wee Joker
