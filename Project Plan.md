@@ -23,7 +23,7 @@
     - [x] Ice Cream
     - [x] Joker Stencil
     - [x] Madness
-    - [ ] Mystic Summit
+    - [x] Mystic Summit
     - [ ] Loyalty Card
     - [ ] Lucky Cat
     - [ ] Obelisk

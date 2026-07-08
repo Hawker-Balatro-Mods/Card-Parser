@@ -147,6 +147,10 @@ local jokerHandlers = {
 		return math.floor((100 - chips) / 5)
 	end,
 
+	j_loyalty_card = function (card)
+		return card.ability.loyalty_remaining + (next(G.play.cards) and 1 or 0)
+	end,
+
 	j_madness = function (card)
 		local mult = card.ability.x_mult
 		if mult == 1 then return nil end
