@@ -202,6 +202,12 @@ local jokerHandlers = {
 		return math.floor(chips / 15)
 	 end,
 
+	 j_square = function (card)
+		local chips = card.ability.extra.chips;
+		if chips == 0 then return nil end
+		return math.floor(chips / 4)
+	 end,
+
 	j_steel_joker = function (card)
 		if card.joker_display_values.x_mult == 1 then return nil end
 		return math.floor((card.joker_display_values.x_mult - 1) / .2)
