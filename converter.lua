@@ -219,6 +219,12 @@ local jokerHandlers = {
 		return mult - 1
 	end,
 
+	j_stone = function (card)
+		local cards = card.ability.stone_tally or 0
+		if cards == 0 then return nil end
+		return cards
+	end,
+
 	j_trousers = function (card)
 		local mult = card.ability.mult
 		if mult == 0 then return nil end

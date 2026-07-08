@@ -33,7 +33,7 @@
     - [x] Ride the Bus
     - [x] Runner
     - [x] Spare Trousers
-    - [ ] Square Joker
+    - [x] Square Joker
     - [x] Steel Joker
     - [ ] Stone Joker
     - [ ] Throwback
