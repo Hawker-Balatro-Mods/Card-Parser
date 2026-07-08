@@ -184,6 +184,18 @@ local jokerHandlers = {
 		return math.floor((2 - card.ability.x_mult) / .01)
 	 end,
 
+	 j_red_card = function (card)
+		local mult = card.ability.mult
+		if mult == 0 then return nil end
+		return math.floor(mult / 3)
+	 end,
+
+	 j_ride_the_bus = function (card)
+		local mult = card.ability.mult
+		if mult == 0 then return nil end
+		return mult
+	 end, 
+
 	j_steel_joker = function (card)
 		if card.joker_display_values.x_mult == 1 then return nil end
 		return math.floor((card.joker_display_values.x_mult - 1) / .2)

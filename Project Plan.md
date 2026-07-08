@@ -28,8 +28,8 @@
     - [x] Lucky Cat
     - [ ] Obelisk
     - [x] Popcorn
-    - [ ] Ramen
-    - [ ] Red Card
+    - [x] Ramen
+    - [x] Red Card
     - [ ] Ride the Bus
     - [ ] Runner
     - [ ] Spare Trousers
