@@ -25,7 +25,7 @@
     - [x] Madness
     - [x] Mystic Summit
     - [x] Loyalty Card
-    - [ ] Lucky Cat
+    - [x] Lucky Cat
     - [ ] Obelisk
     - [x] Popcorn
     - [ ] Ramen

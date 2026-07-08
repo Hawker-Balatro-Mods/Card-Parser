@@ -167,9 +167,22 @@ local jokerHandlers = {
 		if not active then return nil end
 		return 1
 	end,
+
+	j_obelisk = function (card)
+		local mult = card.joker_display_values.x_mult
+		if mult == 1 then return nil end
+		return math.floor((mult - 1) / .2);
+	end,
+
 	j_popcorn = function (card)
 		return math.floor((20 - card.ability.mult)/4)
 	end,
+
+	 j_ramen = function (card)
+		local mult = card.ability.x_mult
+		if mult == 2 then return nil end
+		return math.floor((2 - card.ability.x_mult) / .01)
+	 end,
 
 	j_steel_joker = function (card)
 		if card.joker_display_values.x_mult == 1 then return nil end
