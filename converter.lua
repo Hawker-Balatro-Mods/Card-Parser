@@ -212,6 +212,12 @@ local jokerHandlers = {
 		if mult == 1 then return nil end
 		return mult - 1
 	end,
+
+	j_trousers = function (card)
+		local mult = card.ability.mult
+		if mult == 0 then return nil end
+		return math.floor(mult / 2)
+	end,
 	
 	j_wee = function(card)
 		if card.ability.extra.chips == 0 then return nil end

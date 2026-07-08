@@ -31,8 +31,8 @@
     - [x] Ramen
     - [x] Red Card
     - [x] Ride the Bus
-    - [ ] Runner
-    - [ ] Spare Trousers
+    - [x] Runner
+    - [x] Spare Trousers
     - [ ] Square Joker
     - [x] Steel Joker
     - [ ] Stone Joker
