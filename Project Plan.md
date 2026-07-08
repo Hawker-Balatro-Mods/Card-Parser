@@ -30,7 +30,7 @@
     - [x] Popcorn
     - [x] Ramen
     - [x] Red Card
-    - [ ] Ride the Bus
+    - [x] Ride the Bus
     - [ ] Runner
     - [ ] Spare Trousers
     - [ ] Square Joker
