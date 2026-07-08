@@ -151,6 +151,11 @@ local jokerHandlers = {
 		return card.ability.loyalty_remaining + (next(G.play.cards) and 1 or 0)
 	end,
 
+	j_lucky_cat = function (card)
+		local mult = card.ability.x_mult
+		return math.floor((mult - 1) / .25)
+	end,
+
 	j_madness = function (card)
 		local mult = card.ability.x_mult
 		if mult == 1 then return nil end

@@ -24,7 +24,7 @@
     - [x] Joker Stencil
     - [x] Madness
     - [x] Mystic Summit
-    - [ ] Loyalty Card
+    - [x] Loyalty Card
     - [ ] Lucky Cat
     - [ ] Obelisk
     - [x] Popcorn
