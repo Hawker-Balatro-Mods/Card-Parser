@@ -247,6 +247,10 @@ local jokerHandlers = {
 		if card.ability.extra.chips == 0 then return nil end
 		return card.ability.extra.chips / 8
 	end,
+
+	j_yorick = function (card)
+		return card.ability.x_mult
+	end
 }
 
 --General functions

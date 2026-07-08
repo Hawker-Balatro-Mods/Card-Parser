@@ -38,9 +38,9 @@
     - [x] Stone Joker
     - [x] Throwback
     - [ ] The Idol
-    - [ ] Vampire
+    - [x] Vampire
     - [x] Wee Joker
-    - [ ] Yorick
+    - [x] Yorick
 - [x] Get which cards the user has in their play area
 - [x] Get the level of each hand
 - [x] Get the amount of times each hand has been played
