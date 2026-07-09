@@ -93,6 +93,12 @@ local jokerHandlers = {
 		return math.floor((card.ability.x_mult - 1) / .1)
 	end,
 
+	j_drivers_license = function (card)
+		local drivertall = card.ability.driver_tally
+		if drivertall == 0 then return nil end
+		return drivertall
+	end,
+
 	j_dusk = function (card)
 		local active = G.GAME.current_round.hands_left <= 1;
 		if not active then return nil end
