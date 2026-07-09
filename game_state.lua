@@ -55,7 +55,7 @@ GameState = {
 }
 
 function GameState.is_planet(consumable)
-    return GameState.planets[consumable.key] ~= nil
+    return GameState.planets[consumable.config.center_key] ~= nil
 end
 
 
@@ -133,7 +133,7 @@ end
 -- Remove a planet from a consumable slot
 function GameState.remove_planet(planet)
     local data = GameState.planets[planet.config.center_key];
-    data.count = data.count - 1;
+    data.count = data.count - 1;    
 end
 
 -- todo refactor these bottom two into one function
