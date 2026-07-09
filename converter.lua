@@ -196,7 +196,7 @@ local jokerHandlers = {
 	j_obelisk = function (card)
 		local mult = card.joker_display_values.x_mult
 		if mult == 1 then return nil end
-		return math.floor((mult - 1) / .2);
+		return ((mult - 1) / .2);
 	end,
 
 	j_popcorn = function (card)

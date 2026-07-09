@@ -1,5 +1,5 @@
 - [x] Get which jokers the user has
-- [ ] Apply specific Joker attributes
+- [x] Apply specific Joker attributes
     - [x] Acrobat
     - [x] Ancient Joker
     - [x] Blue Joker
@@ -12,7 +12,7 @@
     - [x] Ceremonial Dagger
     - [x] Constellation
     - [x] Dusk
-    - [ ] Driver's License
+    - [x] Driver's License
     - [x] Erosion
     - [x] Flash Card
     - [x] Fortune Teller
@@ -26,7 +26,7 @@
     - [x] Mystic Summit
     - [x] Loyalty Card
     - [x] Lucky Cat
-    - [ ] Obelisk
+    - [x] Obelisk
     - [x] Popcorn
     - [x] Ramen
     - [x] Red Card
@@ -62,10 +62,10 @@
         - [x] Joker area is modified
         - [x] Card area is modified
         - [ ] A planet card is added/removed from a consumable slot
-        - [ ] Hand info is changed
-            - [ ] levels
-            - [ ] # of times a hand has been played in a run
-            - [ ] # of times a hand has been played in a round
+        - [x] Hand info is changed
+            - [x] levels
+            - [x] # of times a hand has been played in a run
+            - [x] # of times a hand has been played in a round
     - [ ] Boss effects active
         - [x] Flint
         - [ ] Eye (Balatro Calculator does not store if the blind is The Eye)
