@@ -37,7 +37,7 @@
     - [x] Steel Joker
     - [x] Stone Joker
     - [x] Throwback
-    - [ ] The Idol
+    - [x] The Idol
     - [x] Vampire
     - [x] Wee Joker
     - [x] Yorick

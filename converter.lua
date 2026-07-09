@@ -141,6 +141,26 @@ local jokerHandlers = {
 		return math.floor((mult - 1) / .25);
 	end,
 
+	j_idol = function (card)
+		local suitIndex = {
+			["Hearts"] = 0,
+			["Clubs"] = 1,
+			["Diamonds"] = 2,
+			["Spades"] = 3,
+		}
+		local card_names = {
+			["Jack"] = 11,
+			["Queen"] = 12,
+			["King"] = 13,
+			["Ace"] = 14
+		}
+
+		local suitInt = suitIndex[G.GAME.current_round.idol_card.suit]
+		local idolrank = G.GAME.current_round.idol_card.rank
+        local rankInt = card_names[idolrank] or idolrank
+		return suitInt + ((rankInt-2)*4)
+	end,
+
 	j_ice_cream = function (card)
 		local chips = card.ability.extra.chips
 		return math.floor((100 - chips) / 5)
