@@ -1,6 +1,6 @@
 ## [Unreleased]
 ### Added
-
+- bug report issue template (#6)
 ### Changed
 
 ### Fixed
