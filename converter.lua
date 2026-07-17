@@ -495,14 +495,25 @@ function spritePosToBinary(card)
 	local ypos = card.children.center.sprite_pos.y
 	local xpos = card.children.center.sprite_pos.x
 
+	--exceptions
 	if(card.base_cost == 20) then --legendary jokers use a slightly different table
 		ypos = 8
 		xpos = xpos
 	end
 
-	if(card.config.center_key == "j_wee") then
+	if(card.config.center_key == "j_wee") then --wee joker uses base jimbo's sprite
 		ypos = 4 
 		xpos = 0
+	end
+
+	if(card.config.center_key == "j_blueprint") then --specifically for blueprint mod
+		ypos = 3
+		xpos = 0
+	end
+
+	if(card.config.center_key == "j_brainstorm") then --specifically for blueprint mod
+		ypos = 7
+		xpos = 7
 	end
 	
 	local bin = intToBinary(ypos, 4)
