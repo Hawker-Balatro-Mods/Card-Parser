@@ -4,6 +4,7 @@
 ### Changed
 
 ### Fixed
+- Fixed Blueprint/Brainstorm being parsed incorrectly when the mod Blueprint is installed. (#5)
 
 ### Removed
 
