@@ -33,3 +33,57 @@ If **Automatically copy url every event** is enabled, you won't need to press Co
 - Add a description of your changes to `CHANGELOG.md` under the `Unreleased` section.
 - `main` is reserved for production releases and should not be used for development.
 - Please send us a message on Discord after opening your PR so we don't miss it.
+
+### Balatest
+[Balatest](https://github.com/BakersDozenBagels/Balatest/) is a unit testing framework for Balatro mods. While it is not required to contribute, installing it is **strongly recommended** so you can run the test suite locally.
+
+When fixing a bug or adding a feature, include a corresponding unit test. This helps prevent regressions and reduces the amount of manual testing needed before releases. 
+
+Add comments above each test describing its purpose and the steps it performs. This makes it easier for future contributors to understand what the test is validating and why it exists.
+**Example**
+```lua
+-- Purpose: Verify Blueprint and Brainstorm are represented as their own
+-- joker IDs in the calculator rather than the joker they are copying.
+
+-- Steps:
+-- 1. Start with Blueprint, Mystic Summit, and Brainstorm.
+-- 2. Start a blind.
+-- 3. Assert that GameState contains the following joker ids:
+--    - j_blueprint
+--    - j_brainstorm
+--    - j_mystic_summit
+
+-- Manual:
+-- 1. Open the generated calculator link.
+-- 2. Verify Blueprint and Brainstorm appear correctly.
+
+Balatest.TestPlay {
+    name = 'blueprint_brainstorm_copy',
+    no_auto_start = true,
+    jokers = { 'j_blueprint', 'j_mystic_summit', 'j_brainstorm' },
+    execute = function()
+    end,
+    assert = function()
+       local held_joker_ids = {}
+       local expected = {
+           j_blueprint = false,
+           j_brainstorm = false,
+           j_mystic_summit = false,
+       }
+       for _, joker in ipairs(GameState.jokers) do
+           local id = joker.config.center_key
+           table.insert(held_joker_ids, id)   
+           if expected[id] ~= nil then
+               expected[id] = true
+           end
+       end
+       for id, found in pairs(expected) do
+           Balatest.assert(
+               found,
+               ("Expected %s to be a joker in GameState. Got %s")
+                   :format(id, table.concat(held_joker_ids, ", "))
+           )
+       end
+    end
+}
+```

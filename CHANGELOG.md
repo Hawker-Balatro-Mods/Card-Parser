@@ -1,5 +1,6 @@
 ## [Unreleased]
 ### Added
+- Unit test via [Balatest](https://github.com/BakersDozenBagels/Balatest/) (#13)
 
 ### Changed
 
