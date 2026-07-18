@@ -5,7 +5,8 @@
 ### Changed
 
 ### Fixed
-- Fixed Blueprint/Brainstorm being parsed incorrectly when the mod Blueprint is installed. (#5)
+- Blueprint/Brainstorm being parsed incorrectly when the mod Blueprint is installed. (#5)
+- Discard amount not being parsed with Banner Joker (#14)
 
 ### Removed
 
