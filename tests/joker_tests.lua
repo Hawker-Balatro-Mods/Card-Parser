@@ -1,3 +1,4 @@
+-- eval Balatest.run_tests()
 -- Purpose: Verify Blueprint and Brainstorm are represented as their own
 -- joker IDs in the calculator rather than the joker they are copying.
 
