@@ -1,4 +1,5 @@
 -- eval Balatest.run_tests()
+-- eval Balatest.run_tests('card_parser', 'tarot')
 -- Purpose: Verify Blueprint and Brainstorm are represented as their own
 -- joker IDs in the calculator rather than the joker they are copying.
 
@@ -16,6 +17,7 @@
 
 Balatest.TestPlay {
     name = 'blueprint_brainstorm_copy',
+    category = { 'joker', 'external_mod' },
     no_auto_start = true,
     jokers = { 'j_blueprint', 'j_mystic_summit', 'j_brainstorm' },
     execute = function()
@@ -55,6 +57,7 @@ Balatest.TestPlay {
 -- 2. Verify Banner joker is there and discard count is 4
 Balatest.TestPlay {
     name = 'banner_discard',
+    category = { 'joker' },
     no_auto_start = true,
     jokers = { 'j_banner' },
     discards = 4,
@@ -68,7 +71,6 @@ Balatest.TestPlay {
 }
 
 -- Purpose: Verify Madness removes a joker when a blind is selected
-
 -- Steps:
 -- 1. Start with Madness and Square Joker.
 -- 2. Start a blind.
@@ -79,6 +81,7 @@ Balatest.TestPlay {
 -- 2. Verify only Madness is a joker
 Balatest.TestPlay {
     name = 'madness_removal',
+    category = { 'joker' },
     no_auto_start = true,
     jokers = { 'j_madness', 'j_square' },
     execute = function()
@@ -101,3 +104,4 @@ Balatest.TestPlay {
        Balatest.assert(has_madness, "Expected madness joker (j_madness) to be in GameState. Got " .. joker_str)
     end
 }
+

@@ -57,12 +57,13 @@ match_indent = true
 payload = '''
 G.E_MANAGER:add_event(Event({
     func = function()
+        -- If the the user is in a blind
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.set_playing_cards(G.hand.cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -85,8 +86,8 @@ G.E_MANAGER:add_event(Event({
             GameState.set_playing_cards(G.hand.cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -110,8 +111,8 @@ G.E_MANAGER:add_event(Event({
             GameState.add_playing_cards({rightmost})
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -131,8 +132,8 @@ G.E_MANAGER:add_event(Event({
         if G.GAME.blind.config.blind.key ~= nil then
             GameState.remove_playing_cards(destroyed_cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
-            return true
         end
+        return true
     end
 }))
 '''
@@ -152,8 +153,8 @@ G.E_MANAGER:add_event(Event({
             GameState.add_playing_cards(cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -174,8 +175,8 @@ G.E_MANAGER:add_event(Event({
             GameState.add_playing_cards({G.hand.highlighted[1], G.hand.highlighted[1]})
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -196,8 +197,8 @@ G.E_MANAGER:add_event(Event({
             GameState.set_playing_cards(G.hand.cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -214,6 +215,7 @@ for i = 1, #G.hand.cards do
             assert(SMODS.change_base(_card, _suit.key))
             return true
         end
+        return true
     }))
 end
 '''
@@ -226,8 +228,8 @@ G.E_MANAGER:add_event(Event({
             GameState.set_playing_cards(G.hand.cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -256,8 +258,8 @@ G.E_MANAGER:add_event(Event({
             GameState.set_playing_cards(G.hand.cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -278,8 +280,8 @@ G.E_MANAGER:add_event(Event({
             GameState.remove_playing_cards(destroyed_cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
@@ -300,8 +302,8 @@ G.E_MANAGER:add_event(Event({
             GameState.set_playing_cards(G.hand.cards)
             Converter.compileHand(GameState, config.automatic_url_copy)
             GameState.print_playing_cards()
-            return true
         end
+        return true
     end
 }))
 '''
