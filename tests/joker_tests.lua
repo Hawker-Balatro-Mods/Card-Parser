@@ -43,6 +43,29 @@ Balatest.TestPlay {
     end
 }
 
+-- Verify Banner counts discards correctly in calculator
+-- Steps:
+-- 1. Start with Banner
+-- 2. Start a blind.
+-- 3. Assert the discard amount is 4
+
+-- Manual:
+-- 1. Copy anf open the generated calculator link.
+-- 2. Verify Banner joker is there and discard count is 4
+Balatest.TestPlay {
+    name = 'banner_discard',
+    no_auto_start = true,
+    jokers = { 'j_banner' },
+    discards = 4,
+    execute = function()
+        Balatest.start_round()
+    end,
+    assert = function()
+       local discards = G.GAME.current_round.discards_left
+       Balatest.assert_eq(discards, 4, "Expected 4 discards left. Got " .. discards)
+	end
+}
+
 -- Purpose: Verify Madness removes a joker when a blind is selected
 
 -- Steps:
