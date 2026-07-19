@@ -49,6 +49,12 @@ local jokerHandlers = {
 		return 0
 	end,
 
+	j_banner = function (card)
+		local discards = G.GAME.current_round.discards_left;
+		if discards == 0 then return nil end
+		return discards
+	end,
+
 	j_blue_joker = function(card)
 		local cards_in_deck = (G.deck and G.deck.cards) and #G.deck.cards or 52
 		-- despite the website asking for cards remaining, we must calculate this ourselves
