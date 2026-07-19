@@ -1,3 +1,4 @@
+-- eval Balatest.run_tests()
 -- Purpose: Verify Blueprint and Brainstorm are represented as their own
 -- joker IDs in the calculator rather than the joker they are copying.
 
@@ -63,5 +64,40 @@ Balatest.TestPlay {
     assert = function()
        local discards = G.GAME.current_round.discards_left
        Balatest.assert_eq(discards, 4, "Expected 4 discards left. Got " .. discards)
+	end
+}
+
+-- Purpose: Verify Madness removes a joker when a blind is selected
+
+-- Steps:
+-- 1. Start with Madness and Square Joker.
+-- 2. Start a blind.
+-- 3. Assert that the game state only has Madness as a joker
+
+-- Manual:
+-- 1. Open the generated calculator link.
+-- 2. Verify only Madness is a joker
+Balatest.TestPlay {
+    name = 'madness_removal',
+    no_auto_start = true,
+    jokers = { 'j_madness', 'j_square' },
+    execute = function()
+        Balatest.start_round()
+    end,
+    assert = function()
+       local held_joker_ids = {}
+       local has_madness = false
+
+       for _, joker in ipairs(GameState.jokers) do
+           local id = joker.config.center_key
+           table.insert(held_joker_ids, id)
+           if id == 'j_madness' then
+               has_madness = true
+           end
+       end
+       local count = #held_joker_ids
+       local joker_str = table.concat(held_joker_ids, ", ")
+       Balatest.assert_eq(count, 1, "Expected 1 joker in GameSate. Got "..count.." ("..joker_str..")")
+       Balatest.assert(has_madness, "Expected madness joker (j_madness) to be in GameState. Got " .. joker_str)
     end
 }
