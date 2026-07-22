@@ -467,6 +467,7 @@ function enhancementToBinary(card)
 	local enh = card.ability.effect
 	local enhIndex = {
 		["Base"] = 0,
+		["Gold Card"] = 0,
 		["Lucky Card"] = 1,
 		["Glass Card"] = 2,
 		["Bonus Card"] = 3,
