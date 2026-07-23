@@ -15,5 +15,3 @@ level.register_many {
     { key = 'eris', card = 'c_eris', hand = 'Flush Five' },
 }
 -- #endregion
-
--- eval Balatest.run_tests('card_parser', 'planet_level')
