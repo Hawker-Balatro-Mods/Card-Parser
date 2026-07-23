@@ -326,7 +326,7 @@ function binaryToBase64(bitsarray)
 		table.insert(finalChars, string.sub(b64, byteIndex+1, byteIndex+1))
 	end
 	
-	if #finalChars%4 == 1 then table.insert(finalChars, "A") end
+	table.insert(finalChars, "AAA")
 	return table.concat(finalChars)
 end
 
