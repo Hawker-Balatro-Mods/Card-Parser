@@ -235,5 +235,5 @@ if Balatest then
 	assert(SMODS.load_file 'tests/joker_tests.lua')()
     assert(SMODS.load_file 'tests/tarot_tests.lua')()
     assert(SMODS.load_file 'tests/spectral_tests.lua')()
-    
+    assert(SMODS.load_file 'tests/planet_tests.lua')()
 end
