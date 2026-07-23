@@ -127,7 +127,9 @@ end
 -- Add a planet to a consumable slot
 function GameState.add_planet(planet)
     local data = GameState.planets[planet.config.center_key];
+    local old_count = data.count
     data.count = data.count + 1
+    sendTraceMessage(string.format("Increased %s count from %d to %d", data.name, old_count, data.count), "CardParserTraceLogger")
 end
 
 -- Remove a planet from a consumable slot
