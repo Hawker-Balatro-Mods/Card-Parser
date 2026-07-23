@@ -133,9 +133,11 @@ SMODS.current_mod.calculate = function(self, context)
     if context.poker_hand_changed then
         local hand_key = context.scoring_name
         local new_level = context.new_level
+        local old_level = GameState.hands[hand_key].level
 
          G.E_MANAGER:add_event(Event({
             func = function()
+                sendTraceMessage(string.format("Changing level for %s from level %d to %d", hand_key, old_level, new_level), "CardParserTraceLogger")
                 GameState.hands[hand_key].level = new_level;
                 GameState.print_hand_data(hand_key)
                 Converter.compileHand(GameState, config.automatic_url_copy)
@@ -233,4 +235,7 @@ end
 
 if Balatest then
 	assert(SMODS.load_file 'tests/joker_tests.lua')()
+    assert(SMODS.load_file 'tests/tarot_tests.lua')()
+    assert(SMODS.load_file 'tests/spectral_tests.lua')()
+    assert(SMODS.load_file 'tests/planet_tests.lua')()
 end

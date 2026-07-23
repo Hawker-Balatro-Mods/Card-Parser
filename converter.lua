@@ -326,7 +326,7 @@ function binaryToBase64(bitsarray)
 		table.insert(finalChars, string.sub(b64, byteIndex+1, byteIndex+1))
 	end
 	
-	if #finalChars%4 == 1 then table.insert(finalChars, "A") end
+	table.insert(finalChars, "AAA")
 	return table.concat(finalChars)
 end
 
@@ -467,6 +467,7 @@ function enhancementToBinary(card)
 	local enh = card.ability.effect
 	local enhIndex = {
 		["Base"] = 0,
+		["Gold Card"] = 0,
 		["Lucky Card"] = 1,
 		["Glass Card"] = 2,
 		["Bonus Card"] = 3,
