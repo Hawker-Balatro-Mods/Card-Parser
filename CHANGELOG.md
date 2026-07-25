@@ -1,5 +1,6 @@
 ## [Unreleased]
 ### Added
+- Bug report issue template (#6)
 - Unit test via [Balatest](https://github.com/BakersDozenBagels/Balatest/) (#13)
 
 ### Changed
