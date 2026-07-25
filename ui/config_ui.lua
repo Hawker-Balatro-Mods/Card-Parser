@@ -7,7 +7,7 @@ function SMODS.current_mod.config_tab()
             config = {minw = 1, minh = 1, align = "tl", padding = 0.1, colour = G.C.CLEAR},
             nodes = {
                 create_toggle {
-                    label = "Automatically copy url every event",
+                    label = localize("card_parser_mod_auto_url"),
                     ref_table = cardparse_mod.config,
                     ref_value = "automatic_url_copy",
                     scale = 2,
