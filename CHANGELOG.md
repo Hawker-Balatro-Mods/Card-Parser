@@ -11,6 +11,7 @@
 - GameState not removing a joker when Madness is activated (#15)
 - Using tarot/spectral cards in packs hanging the game (#18)
 - A crash that occurred when copying the calculator link while a Gold Card was in the player's hand (#18)
+- Truncated hand level data in calculator URLs (#19)
 
 ### Removed
 
