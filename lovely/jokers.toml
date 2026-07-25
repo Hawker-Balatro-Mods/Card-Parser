@@ -22,3 +22,23 @@ G.E_MANAGER:add_event(Event({
     end
 }))
 '''
+
+# Madness
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+local joker_to_destroy = #destructable_jokers > 0 and pseudorandom_element(destructable_jokers, pseudoseed('madness')) or nil
+'''
+position = 'after'
+match_indent = true
+payload = '''
+G.E_MANAGER:add_event(Event({
+    func = function()
+        GameState.remove_joker(joker_to_destroy)
+        Converter.compileHand(GameState, config.automatic_url_copy)
+        GameState.print_jokers()
+        return true
+    end
+}))
+'''

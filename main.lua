@@ -231,3 +231,6 @@ function Game:init_game_object()
     return ret
 end
 
+if Balatest then
+	assert(SMODS.load_file 'tests/joker_tests.lua')()
+end
