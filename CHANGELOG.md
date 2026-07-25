@@ -1,5 +1,6 @@
 ## [Unreleased]
 ### Added
+- Bug report issue template (#6)
 - Unit test via [Balatest](https://github.com/BakersDozenBagels/Balatest/) (#13)
 
 ### Changed
@@ -11,6 +12,7 @@
 - Using tarot/spectral cards in packs hanging the game (#18)
 - A crash that occurred when copying the calculator link while a Gold Card was in the player's hand (#18)
 - Truncated hand level data in calculator URLs (#19)
+
 ### Removed
 
 ## [1.0.0] - 2026-07-09
