@@ -11,6 +11,6 @@ end
 
 function get_copy_button()
 return {n=G.UIT.C, config={button = "copy_url", align = "cm", colour = G.C.RED, r=0.25, padding=0.1}, nodes={
-        {n=G.UIT.T, config={text = "Copy calculator url", colour = G.C.UI.TEXT_LIGHT, scale = 0.5}},
+        {n=G.UIT.T, config={text = localize("card_parser_mod_copy_url"), colour = G.C.UI.TEXT_LIGHT, scale = 0.5}},
 }}
 end

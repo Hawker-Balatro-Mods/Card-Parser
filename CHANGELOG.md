@@ -2,6 +2,7 @@
 ### Added
 - Bug report issue template (#6)
 - Unit test via [Balatest](https://github.com/BakersDozenBagels/Balatest/) (#13)
+- Localization support (#20)
 
 ### Changed
 - READ.ME to add instructions for [Balatest](https://github.com/BakersDozenBagels/Balatest/) (#13)
